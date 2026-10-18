@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://cemiaperu-svg.github.io/cemia-web/sitemap.xml
