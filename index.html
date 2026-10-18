@@ -1,0 +1,1007 @@
+<!doctype html>
+<html lang="es" class="scroll-smooth">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CEMIA | Sembramos aprendizajes · Transformación educativa</title>
+  <meta name="description" content="CEMIA, aliado estratégico para la transformación educativa: lectura y escritura, formación docente, bibliotecas educativas, calidad educativa y proyectos con impacto medible.">
+  <meta property="og:title" content="CEMIA | Sembramos aprendizajes">
+  <meta property="og:description" content="Transformamos desafíos educativos en resultados medibles y sostenibles. Sembramos aprendizajes.">
+  <meta property="og:type" content="website">
+  <meta name="theme-color" content="#0F2C5C">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="styles.css">
+  <script src="https://unpkg.com/lucide@0.468.0/dist/umd/lucide.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <link rel="icon" type="image/png" href="cemi-isotipo.png">
+
+  <style>
+    body { -webkit-font-smoothing: antialiased; }
+    .btn-gold {
+      background-image: linear-gradient(180deg, #F6C833 0%, #F2B705 100%);
+    }
+    .reveal { transition: transform .7s ease; }
+    .reveal.is-visible { transform: none; }
+    /* CEMI volador */
+    .cemi-fly { position: fixed; left: 0; top: 0; width: 180px; height: 180px; z-index: 50; pointer-events: none; will-change: transform; transform: translate3d(70vw, 18vh, 0); }
+    .cemi-btn { pointer-events: auto; display: block; width: 100%; height: 100%; padding: 0; border: 0; background: transparent; cursor: pointer; border-radius: 50%; -webkit-tap-highlight-color: transparent; }
+    .cemi-btn:focus-visible, [data-cemi-greet]:focus-visible { outline: 3px solid #2EBFA5; outline-offset: 4px; }
+    .cemi-hop, .cemi-flip { display: block; width: 100%; height: 100%; }
+    .cemi-flip { will-change: transform; }
+    .cemi-media { display: none; width: 100%; height: 100%; object-fit: contain; pointer-events: none; filter: drop-shadow(0 12px 16px rgba(15,44,92,.18)); }
+    .has-video > .cemi-video, .has-img > .cemi-img { display: block; }
+    .cemi-card-media .cemi-media { position: absolute; inset: 0; }
+    .has-video > .cemi-svg, .has-img > .cemi-svg { display: none; }
+    .cemi-svg { width: 100%; height: 100%; overflow: visible; filter: drop-shadow(0 10px 14px rgba(24,43,89,.18)); }
+    .cemi-wings { transform-box: view-box; transform-origin: 110px 95px; animation: cemiFlap .13s ease-in-out infinite alternate; }
+    @keyframes cemiFlap { from { transform: rotate(0deg) scaleY(1); } to { transform: rotate(-26deg) scaleY(.72); } }
+    .cemi-bubble { position: fixed; left: 0; top: 0; z-index: 51; pointer-events: none; opacity: 0; transition: opacity .2s ease; white-space: normal; width: max-content; max-width: min(280px, calc(100vw - 32px)); text-align: left; background: #0F2C5C; color: #fff; font: 600 15px/1.4 "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif; padding: 10px 16px; border-radius: 16px; box-shadow: 0 12px 28px rgba(15,44,92,.25); }
+    .cemi-bubble.is-on { opacity: 1; }
+    .cemi-bubble.is-below::after { bottom: auto; top: -6px; }
+    .cemi-underline { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 60 12' width='60' height='12'%3E%3Cpath d='M0 7 C 15 1, 15 1, 30 7 S 45 13, 60 7' fill='none' stroke='%232EBFA5' stroke-width='3.2' stroke-linecap='round'/%3E%3C/svg%3E"); background-repeat: repeat-x; background-position: 0 100%; background-size: auto .26em; padding-bottom: .14em; -webkit-box-decoration-break: clone; box-decoration-break: clone; }
+    .cemi-flower svg { overflow: visible; }
+    summary::-webkit-details-marker { display: none; }
+    .cemi-bubble::after { content: ""; position: absolute; left: 50%; bottom: -6px; width: 12px; height: 12px; background: #0F2C5C; transform: translateX(-50%) rotate(45deg); border-radius: 2px; }
+    @media (max-width: 767px) { .cemi-fly { width: 100px; height: 100px; } }
+    .cemi-fly.is-static { transform: none; top: auto; left: auto; right: 12px; bottom: 88px; width: 90px; height: 90px; }
+    .cemi-fly.is-static .cemi-wings { animation: none; }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+      .reveal { opacity: 1; transform: none; }
+    }
+  </style>
+</head>
+<body class="bg-white font-sans text-cemia-corp">
+
+    <!-- CEMI, colibrí volador (sigue el mouse y el scroll). Sube junto a este index.html:
+       colibri-vuelo.webm (video con transparencia: Chrome, Edge, Firefox, Android)
+       cemi-vuelo.webp   (animación con transparencia: Safari / iPhone)
+       Si ninguno carga, se muestra un colibrí origami en SVG. -->
+  <div id="cemiFly" class="cemi-fly">
+    <button type="button" id="cemiBtn" class="cemi-btn" aria-label="CEMI, el colibrí de CEMIA. Toca para saludar.">
+      <span class="cemi-hop">
+        <span class="cemi-flip">
+          <video class="cemi-media cemi-video" autoplay loop muted playsinline preload="auto">
+            <source src="colibri-vuelo.webm" type="video/webm">
+          </video>
+          <img class="cemi-media cemi-img" alt="" width="180" height="180" decoding="async">
+          <svg class="cemi-svg" viewBox="0 0 200 200" aria-hidden="true">
+            <g class="cemi-wings">
+              <polygon points="110,95 38,18 76,72" fill="#182B59"/>
+              <polygon points="110,95 76,72 58,40" fill="#22427a"/>
+              <polygon points="110,95 26,54 66,90" fill="#009B90"/>
+              <polygon points="110,95 66,90 44,70" fill="#0b8077"/>
+              <polygon points="110,95 30,96 72,106" fill="#2EBFA5"/>
+            </g>
+            <polygon points="118,62 142,54 152,70 132,82" fill="#182B59"/>
+            <polygon points="148,62 198,50 152,72" fill="#182B59"/>
+            <polygon points="118,62 132,82 116,118 100,108" fill="#22427a"/>
+            <polygon points="100,108 116,118 98,148 84,138" fill="#0b6f86"/>
+            <polygon points="84,138 98,148 92,156 80,150" fill="#009B90"/>
+            <polygon points="78,150 94,158 76,186" fill="#D49B27"/>
+            <circle cx="138" cy="65" r="2.6" fill="#ffffff"/>
+          </svg>
+        </span>
+      </span>
+    </button>
+  </div>
+  <div id="cemiBubble" class="cemi-bubble" role="status" aria-live="polite"></div>
+
+  <svg width="0" height="0" class="absolute" aria-hidden="true" focusable="false">
+    <defs>
+      <g id="cemiFlor">
+        <path d="M 70 0 C 66 30, 72 55, 62 76" fill="none" stroke="#2f6b3a" stroke-width="2.4" stroke-linecap="round"/>
+        <path d="M 69 28 C 84 24, 93 32, 91 41 C 81 41, 72 37, 69 28 Z" fill="#3f8a4f"/>
+        <path d="M 67 50 C 52 48, 45 56, 47 63 C 57 63, 64 58, 67 50 Z" fill="#2f6b3a"/>
+        <path d="M 58 70 L 70 73 L 66 85 Z" fill="#2f6b3a"/>
+        <path d="M 66 76 C 50 82, 32 82, 16 80 L 14 96 C 32 96, 52 94, 68 86 Z" fill="#c8344a"/>
+        <path d="M 60 80 C 46 85, 32 86, 20 85" fill="none" stroke="#e86a7d" stroke-width="2" stroke-linecap="round"/>
+        <path d="M 16 79 C 6 73, 1 82, 8 88 C 1 94, 6 103, 14 97 Z" fill="#9d2238"/>
+        <path d="M 12 88 L 3 86 M 12 88 L 3 90" stroke="#F2B705" stroke-width="1.6" stroke-linecap="round"/>
+        <circle cx="3" cy="86" r="1.4" fill="#F2B705"/><circle cx="3" cy="90" r="1.4" fill="#F2B705"/>
+      </g>
+    </defs>
+  </svg>
+  <a href="#contenido" class="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[60] focus:rounded-lg focus:bg-white focus:px-4 focus:py-2 focus:text-cemia-navy focus:shadow-lg">Saltar al contenido</a>
+
+
+  <!-- 1. NAVBAR -->
+  <header class="sticky top-0 z-50 border-b border-slate-200/60 bg-white/85 backdrop-blur-md">
+    <nav class="mx-auto flex h-20 max-w-7xl items-center justify-between px-5 lg:px-8" aria-label="Principal">
+      <a href="#inicio" class="flex items-center gap-3" aria-label="CEMIA, ir al inicio">
+        <img src="cemi-isotipo.png" alt="" width="48" height="48" class="h-12 w-12">
+        <span class="leading-tight">
+          <span class="block font-display text-xl font-extrabold tracking-tight text-cemia-navy">CEMIA</span>
+          <span class="block text-[11px] font-medium uppercase tracking-[0.14em] text-slate-500">Metodologías de Innovación</span>
+        </span>
+      </a>
+
+      <ul class="hidden items-center gap-7 text-sm font-medium text-cemia-corp lg:flex">
+        <li><a href="#impacto" class="transition-colors hover:text-cemia-deep-turquoise">Impacto</a></li>
+        <li><a href="#soluciones" class="transition-colors hover:text-cemia-deep-turquoise">Soluciones</a></li>
+        <li><a href="#metodologia" class="transition-colors hover:text-cemia-deep-turquoise">Metodología</a></li>
+        <li><a href="#testimonios" class="transition-colors hover:text-cemia-deep-turquoise">Testimonios</a></li>
+        <li><a href="#casos" class="transition-colors hover:text-cemia-deep-turquoise">Casos</a></li>
+        <li><a href="#nosotros" class="transition-colors hover:text-cemia-deep-turquoise">Nosotros</a></li>
+      </ul>
+
+      <div class="flex items-center gap-3">
+        <a href="#contacto" class="btn-gold hidden items-center gap-2 rounded-xl px-5 py-3 text-sm font-bold text-cemia-navy shadow-lg shadow-[#F2B705]/30 transition-all duration-300 hover:-translate-y-0.5 hover:brightness-105 active:scale-[0.98] sm:inline-flex">
+          <i data-lucide="message-circle" class="h-4 w-4"></i>Hablemos de tu proyecto
+        </a>
+        <button id="menuBtn" type="button" class="inline-flex h-11 w-11 items-center justify-center rounded-xl border border-slate-200 text-cemia-navy lg:hidden" aria-expanded="false" aria-controls="mobileMenu" aria-label="Abrir menú">
+          <i data-lucide="menu" class="h-5 w-5"></i>
+        </button>
+      </div>
+    </nav>
+    <div id="mobileMenu" class="hidden border-t border-slate-200/60 bg-white lg:hidden">
+      <ul class="mx-auto flex max-w-7xl flex-col gap-1 px-5 py-4 text-base font-medium text-cemia-navy">
+        <li><a href="#impacto" class="block rounded-lg px-3 py-3 hover:bg-cemia-pearl">Impacto</a></li>
+        <li><a href="#soluciones" class="block rounded-lg px-3 py-3 hover:bg-cemia-pearl">Soluciones</a></li>
+        <li><a href="#metodologia" class="block rounded-lg px-3 py-3 hover:bg-cemia-pearl">Metodología</a></li>
+        <li><a href="#testimonios" class="block rounded-lg px-3 py-3 hover:bg-cemia-pearl">Testimonios</a></li>
+        <li><a href="#casos" class="block rounded-lg px-3 py-3 hover:bg-cemia-pearl">Casos</a></li>
+        <li><a href="#nosotros" class="block rounded-lg px-3 py-3 hover:bg-cemia-pearl">Nosotros</a></li>
+        <li class="pt-2"><a href="#contacto" class="btn-gold flex items-center justify-center gap-2 rounded-xl px-5 py-3 font-bold text-cemia-navy shadow-lg shadow-[#F2B705]/30">Hablemos de tu proyecto</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <main id="contenido">
+    <!-- HERO -->
+    <section id="inicio" class="relative overflow-hidden">
+      <div class="pointer-events-none absolute inset-0" aria-hidden="true"
+           style="background:
+             radial-gradient(60% 55% at 85% 20%, rgba(125,211,192,0.22) 0%, rgba(125,211,192,0) 70%),
+             radial-gradient(50% 50% at 10% 80%, rgba(46,191,165,0.12) 0%, rgba(46,191,165,0) 70%);"></div>
+      <div class="relative mx-auto grid max-w-7xl items-center gap-16 px-5 py-20 lg:grid-cols-2 lg:px-8 lg:py-28">
+        <div>
+          <span class="inline-flex items-center gap-2 rounded-full border border-cemia-turquoise bg-cemia-mint/20 px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-cemia-navy">
+            <i data-lucide="sparkles" class="h-3.5 w-3.5 text-cemia-deep-turquoise"></i>Aliado estratégico para la transformación
+          </span>
+          <h1 class="mt-6 font-display text-5xl font-extrabold leading-tight tracking-tight text-cemia-navy lg:text-6xl">
+            Transformamos desafíos educativos en <span class="cemi-underline">resultados medibles</span> y sostenibles
+          </h1>
+          <p class="mt-7 max-w-xl text-lg leading-relaxed text-cemia-corp">
+            CEMIA es el socio estratégico que tu institución necesita para convertir problemas complejos en proyectos educativos con impacto comprobable. Trabajamos junto a directores, gestores y organizaciones sociales.
+          </p>
+          <div class="mt-9 flex flex-col gap-3 sm:flex-row">
+            <a href="#contacto" class="btn-gold inline-flex items-center justify-center gap-2 rounded-xl px-7 py-4 text-base font-bold text-cemia-navy shadow-lg shadow-[#F2B705]/30 transition-all duration-300 hover:-translate-y-0.5 hover:brightness-105 active:scale-[0.98]">Hablemos de tu proyecto<i data-lucide="arrow-right" class="h-5 w-5"></i></a>
+            <a href="#soluciones" class="inline-flex items-center justify-center gap-2 rounded-xl border-2 border-cemia-navy px-7 py-4 text-base font-semibold text-cemia-navy transition-all duration-300 hover:bg-cemia-navy hover:text-white active:scale-[0.98]">Ver soluciones</a>
+          </div>
+          <ul class="mt-10 flex flex-wrap gap-x-6 gap-y-3 text-sm font-medium text-cemia-corp">
+            <li class="flex items-center gap-2"><i data-lucide="badge-check" class="h-5 w-5 text-cemia-deep-turquoise"></i>Soluciones a medida</li>
+            <li class="flex items-center gap-2"><i data-lucide="badge-check" class="h-5 w-5 text-cemia-deep-turquoise"></i>Acompañamiento en el aula</li>
+            <li class="flex items-center gap-2"><i data-lucide="badge-check" class="h-5 w-5 text-cemia-deep-turquoise"></i>Impacto medible</li>
+          </ul>
+        </div>
+
+        <!-- Composición visual -->
+        <div class="relative mx-auto w-full max-w-xl">
+          <div class="relative overflow-hidden rounded-3xl border border-slate-200/80 bg-gradient-to-br from-cemia-pearl via-white to-cemia-mint/30 p-6 shadow-2xl shadow-slate-200/60">
+            <!-- Reemplazar por foto propia de niños leyendo: <img src="tu-foto.jpg" class="h-full w-full rounded-2xl object-cover" alt="..."> -->
+            <svg viewBox="-260 -190 400 300" class="h-auto w-full" role="img" aria-label="Libro abierto con una línea dorada escrita por CEMI">
+              <ellipse cx="-60" cy="96" rx="170" ry="10" fill="#0F2C5C" opacity="0.08"/>
+              <path d="M -210 80 C -160 60, -100 60, -60 78 C -20 60, 40 60, 90 80 L 90 92 C 40 74, -20 74, -60 92 C -100 74, -160 74, -210 92 Z" fill="#ffffff" stroke="#0F2C5C" stroke-opacity="0.15"/>
+              <path d="M -60 78 L -60 92" stroke="#0F2C5C" stroke-opacity="0.25"/>
+              <g stroke="#0F2C5C" stroke-opacity="0.18" stroke-width="1.2" stroke-linecap="round">
+                <path d="M -190 78 C -160 68, -120 68, -80 78"/><path d="M -40 78 C 0 68, 40 68, 70 78"/>
+              </g>
+              <path id="heroTrail" d="M -170 40 C -140 10, -110 50, -80 24 S -30 0, 0 10" fill="none" stroke="#F2B705" stroke-width="3" stroke-linecap="round" pathLength="100" stroke-dasharray="100" stroke-dashoffset="100">
+                <animate attributeName="stroke-dashoffset" values="100;0;0;100" keyTimes="0;0.5;0.85;1" dur="6s" repeatCount="indefinite"/>
+              </path>
+            </svg>
+          </div>
+
+          <div class="absolute -left-4 top-6 hidden w-56 animate-float rounded-2xl border border-slate-200/80 bg-white/95 p-4 shadow-xl shadow-slate-200/60 backdrop-blur sm:block lg:-left-10">
+            <div class="flex items-center gap-3">
+              <span class="flex h-10 w-10 items-center justify-center rounded-xl bg-cemia-mint/25 text-cemia-deep-turquoise"><i data-lucide="scan-search" class="h-5 w-5"></i></span>
+              <div>
+                <p class="text-xs text-slate-500">Nuestro enfoque</p>
+                <p class="text-sm font-semibold text-cemia-navy">Medimos para demostrar</p>
+              </div>
+            </div>
+            <div class="mt-3 space-y-2" aria-hidden="true">
+              <div class="h-1.5 w-full rounded-full bg-slate-100"><div class="h-1.5 w-4/5 rounded-full bg-cemia-turquoise"></div></div>
+              <div class="h-1.5 w-full rounded-full bg-slate-100"><div class="h-1.5 w-3/5 rounded-full bg-cemia-mint"></div></div>
+            </div>
+          </div>
+
+          <div class="absolute -right-3 bottom-10 hidden w-60 animate-float-slow rounded-2xl border border-slate-200/80 bg-white/95 p-4 shadow-xl shadow-slate-200/60 backdrop-blur sm:block lg:-right-8">
+            <div class="flex items-start gap-3">
+              <span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-cemia-navy text-white"><i data-lucide="shield-check" class="h-5 w-5"></i></span>
+              <div>
+                <p class="text-sm font-semibold text-cemia-navy">Alineado al MINEDU</p>
+                <p class="text-xs text-slate-500">Marco de la RM N.° 586-2026-MINEDU</p>
+              </div>
+            </div>
+          </div>
+
+          <span class="cemi-flower pointer-events-none absolute block -top-16 right-4 w-16 sm:w-20" data-mouth="left" data-cemi-msgs='["¡Hola! Me llamo CEMI. Leer es como volar: cada libro te lleva a un lugar nuevo.", "Despertar el amor por la lectura desde Inicial acompaña a los niños toda su vida escolar."]' aria-hidden="true"><svg viewBox="0 0 100 130" class="block h-auto w-full"><use href="#cemiFlor"/></svg></span>
+          <div class="absolute -bottom-6 left-10 hidden items-center gap-2 rounded-full border border-slate-200/80 bg-white px-4 py-2 shadow-lg shadow-slate-200/60 md:flex">
+            <i data-lucide="library" class="h-4 w-4 text-cemia-deep-turquoise"></i>
+            <span class="text-xs font-semibold text-cemia-navy">Bibliotecas Escolares de Creación</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- IMPACTO -->
+    <section id="impacto" class="relative border-y border-slate-200/70 bg-cemia-pearl py-24 lg:py-28">
+      <span class="cemi-flower pointer-events-none absolute block right-6 top-10 hidden w-20 md:block lg:right-16" data-mouth="left" data-cemi-msgs='["Un proyecto sin indicadores es solo una buena intención. ¡Por eso medimos todo!", "Más de 2,000 estudiantes ya viven la lectura de otra manera."]' aria-hidden="true"><svg viewBox="0 0 100 130" class="block h-auto w-full"><use href="#cemiFlor"/></svg></span>
+      <div class="mx-auto max-w-7xl px-5 lg:px-8">
+        <div class="reveal mx-auto max-w-3xl text-center">
+          <span class="inline-flex items-center rounded-full bg-cemia-mint/25 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-cemia-navy">Impacto</span>
+          <h2 class="mt-5 font-display text-4xl font-extrabold tracking-tight text-cemia-navy lg:text-5xl">¿Cómo sabemos que una solución funciona?</h2>
+          <p class="mt-5 text-lg text-slate-600">Un proyecto sin indicadores es solo una buena intención. Evaluamos participación, aprendizaje, aplicación, cambios en prácticas, resultados institucionales e impacto del proyecto.</p>
+        </div>
+        <dl class="mt-14 grid gap-5 sm:grid-cols-3">
+          <div class="reveal rounded-3xl border border-slate-200/80 bg-white transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl hover:shadow-slate-200/50 p-8 text-center">
+            <span class="mx-auto flex h-12 w-12 items-center justify-center rounded-2xl bg-cemia-mint/25 text-cemia-deep-turquoise"><i data-lucide="folder-check" class="h-6 w-6"></i></span>
+            <dd class="mt-5 font-display text-5xl font-extrabold tracking-tight text-cemia-navy" style="font-variant-numeric: tabular-nums;">3</dd>
+            <dt class="mt-2 text-xs font-semibold uppercase tracking-wider text-slate-500">Proyectos ejecutados</dt>
+          </div>
+          <div class="reveal rounded-3xl border border-slate-200/80 bg-white transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl hover:shadow-slate-200/50 p-8 text-center">
+            <span class="mx-auto flex h-12 w-12 items-center justify-center rounded-2xl bg-cemia-mint/25 text-cemia-deep-turquoise"><i data-lucide="users" class="h-6 w-6"></i></span>
+            <dd class="mt-5 font-display text-5xl font-extrabold tracking-tight text-cemia-navy" style="font-variant-numeric: tabular-nums;">100+</dd>
+            <dt class="mt-2 text-xs font-semibold uppercase tracking-wider text-slate-500">Docentes acompañados</dt>
+          </div>
+          <div class="reveal rounded-3xl border border-slate-200/80 bg-white transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl hover:shadow-slate-200/50 p-8 text-center">
+            <span class="mx-auto flex h-12 w-12 items-center justify-center rounded-2xl bg-cemia-mint/25 text-cemia-deep-turquoise"><i data-lucide="graduation-cap" class="h-6 w-6"></i></span>
+            <dd class="mt-5 font-display text-5xl font-extrabold tracking-tight text-cemia-navy" style="font-variant-numeric: tabular-nums;">2,000+</dd>
+            <dt class="mt-2 text-xs font-semibold uppercase tracking-wider text-slate-500">Estudiantes impactados</dt>
+          </div>
+        </dl>
+        <div class="reveal mt-10 flex flex-col items-center gap-4">
+          <p class="font-display text-2xl font-bold text-cemia-navy">Medimos para demostrar.</p>
+          <ul class="flex flex-wrap justify-center gap-2">
+            <li class="rounded-full border border-cemia-turquoise/60 bg-white px-4 py-1.5 text-sm font-medium text-cemia-corp">Participación</li>
+            <li class="rounded-full border border-cemia-turquoise/60 bg-white px-4 py-1.5 text-sm font-medium text-cemia-corp">Aprendizaje</li>
+            <li class="rounded-full border border-cemia-turquoise/60 bg-white px-4 py-1.5 text-sm font-medium text-cemia-corp">Aplicación</li>
+            <li class="rounded-full border border-cemia-turquoise/60 bg-white px-4 py-1.5 text-sm font-medium text-cemia-corp">Cambios en prácticas</li>
+            <li class="rounded-full border border-cemia-turquoise/60 bg-white px-4 py-1.5 text-sm font-medium text-cemia-corp">Resultados institucionales</li>
+            <li class="rounded-full border border-cemia-turquoise/60 bg-white px-4 py-1.5 text-sm font-medium text-cemia-corp">Impacto del proyecto</li>
+          </ul>
+          <p class="mt-4 text-sm text-slate-500">Trabajamos con colegios, fundaciones y organizaciones sociales.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- DESAFÍOS -->
+    <section class="bg-white py-24 lg:py-28" aria-labelledby="desafios-title">
+      <div class="mx-auto max-w-7xl px-5 lg:px-8">
+        <div class="reveal mx-auto max-w-3xl text-center">
+          <span class="inline-flex items-center rounded-full bg-cemia-mint/25 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-cemia-navy">El problema</span>
+          <h2 id="desafios-title" class="mt-5 font-display text-4xl font-extrabold tracking-tight text-cemia-navy lg:text-5xl">Los desafíos educativos no se resuelven con una capacitación aislada.</h2>
+        </div>
+        <div class="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-5">
+          <article class="reveal rounded-3xl border border-slate-200/80 bg-white transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl hover:shadow-slate-200/50 p-6">
+            <span class="flex h-11 w-11 items-center justify-center rounded-2xl bg-cemia-navy text-white"><i data-lucide="wrench" class="h-5 w-5"></i></span>
+            <h3 class="mt-4 font-display text-lg font-bold text-cemia-navy">Herramientas prácticas</h3>
+            <p class="mt-2 text-sm leading-relaxed text-slate-600">Docentes que necesitan nuevas herramientas aplicables para enseñar, no solo teoría desconectada del aula.</p>
+          </article>
+          <article class="reveal rounded-3xl border border-slate-200/80 bg-white transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl hover:shadow-slate-200/50 p-6">
+            <span class="flex h-11 w-11 items-center justify-center rounded-2xl bg-cemia-navy text-white"><i data-lucide="refresh-cw" class="h-5 w-5"></i></span>
+            <h3 class="mt-4 font-display text-lg font-bold text-cemia-navy">Sostenibilidad</h3>
+            <p class="mt-2 text-sm leading-relaxed text-slate-600">Proyectos de lectura y escritura que entusiasman al inicio pero no logran sostenerse en el tiempo.</p>
+          </article>
+          <article class="reveal rounded-3xl border border-slate-200/80 bg-white transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl hover:shadow-slate-200/50 p-6">
+            <span class="flex h-11 w-11 items-center justify-center rounded-2xl bg-cemia-navy text-white"><i data-lucide="library" class="h-5 w-5"></i></span>
+            <h3 class="mt-4 font-display text-lg font-bold text-cemia-navy">Integración</h3>
+            <p class="mt-2 text-sm leading-relaxed text-slate-600">Bibliotecas que existen físicamente, pero no se integran al ecosistema diario de aprendizaje.</p>
+          </article>
+          <article class="reveal rounded-3xl border border-slate-200/80 bg-white transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl hover:shadow-slate-200/50 p-6">
+            <span class="flex h-11 w-11 items-center justify-center rounded-2xl bg-cemia-navy text-white"><i data-lucide="gauge" class="h-5 w-5"></i></span>
+            <h3 class="mt-4 font-display text-lg font-bold text-cemia-navy">Medición de impacto</h3>
+            <p class="mt-2 text-sm leading-relaxed text-slate-600">Iniciativas educativas bien intencionadas pero sin indicadores claros ni evaluación de resultados.</p>
+          </article>
+          <article class="reveal rounded-3xl border border-slate-200/80 bg-white transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl hover:shadow-slate-200/50 p-6">
+            <span class="flex h-11 w-11 items-center justify-center rounded-2xl bg-cemia-navy text-white"><i data-lucide="trending-up" class="h-5 w-5"></i></span>
+            <h3 class="mt-4 font-display text-lg font-bold text-cemia-navy">Cambio real</h3>
+            <p class="mt-2 text-sm leading-relaxed text-slate-600">Capacitaciones estandarizadas que se olvidan rápido y no se traducen en cambios sostenibles.</p>
+          </article>
+        </div>
+        <p class="reveal mt-12 text-center font-display text-2xl font-bold text-cemia-navy">Por eso diseñamos soluciones adaptadas a la realidad de cada institución.</p>
+      </div>
+    </section>
+
+    <!-- SOLUCIONES -->
+    <section id="soluciones" class="relative bg-cemia-pearl py-24 lg:py-28">
+      <span class="cemi-flower pointer-events-none absolute block left-6 top-10 hidden w-20 md:block lg:left-16" data-mouth="right" data-cemi-msgs='["Las bibliotecas no son depósitos: son el corazón académico del colegio.", "Un docente con herramientas prácticas transforma a todo su salón."]' aria-hidden="true"><svg viewBox="0 0 100 130" class="block h-auto w-full"><use href="#cemiFlor" transform="translate(100 0) scale(-1 1)"/></svg></span>
+      <div class="mx-auto max-w-7xl px-5 lg:px-8">
+        <div class="reveal mx-auto max-w-3xl text-center">
+          <span class="inline-flex items-center rounded-full bg-cemia-mint/25 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-cemia-navy">Nuestro portafolio</span>
+          <h2 class="mt-5 font-display text-4xl font-extrabold tracking-tight text-cemia-navy lg:text-5xl">Soluciones para transformar la experiencia educativa</h2>
+          <p class="mt-5 text-lg text-slate-600">Programas integrales diseñados para resolver problemas específicos y elevar la calidad institucional.</p>
+        </div>
+        <div class="mt-16 grid gap-5 md:grid-cols-2 lg:grid-cols-6">
+          <article class="reveal group flex flex-col rounded-3xl border border-slate-200/80 bg-cemia-navy text-white p-7 transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl hover:shadow-slate-200/50 lg:col-span-3 lg:p-8">
+            <span class="flex h-12 w-12 items-center justify-center rounded-2xl bg-white/10 text-cemia-mint ring-1 ring-white/20"><i data-lucide="book-open-text" class="h-6 w-6"></i></span>
+            <h3 class="mt-5 font-display text-2xl font-bold tracking-tight text-white">Lectura y escritura</h3>
+            <dl class="mt-4 flex flex-1 flex-col gap-3 text-sm leading-relaxed">
+              <div><dt class="text-xs font-semibold uppercase tracking-wider text-cemia-mint">Problema</dt><dd class="mt-1 text-slate-100">Bajos niveles de comprensión y desmotivación lectora en los estudiantes.</dd></div>
+              <div><dt class="text-xs font-semibold uppercase tracking-wider text-cemia-mint">Solución</dt><dd class="mt-1 text-slate-100">Diseño e implementación de estrategias para fortalecer competencias de lectura y escritura.</dd></div>
+              <div class="mt-auto rounded-2xl bg-white/10 text-white p-4"><dt class="text-xs font-semibold uppercase tracking-wider text-cemia-mint">Resultado esperado</dt><dd class="mt-1 font-semibold">Estudiantes que leen críticamente y escriben con propósito.</dd></div>
+            </dl>
+          </article>
+          <article class="reveal group flex flex-col rounded-3xl border border-slate-200/80 bg-white p-7 transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl hover:shadow-slate-200/50 lg:col-span-3 lg:p-8">
+            <span class="flex h-12 w-12 items-center justify-center rounded-2xl bg-cemia-mint/25 text-cemia-deep-turquoise"><i data-lucide="graduation-cap" class="h-6 w-6"></i></span>
+            <h3 class="mt-5 font-display text-2xl font-bold tracking-tight text-cemia-navy">Formación docente</h3>
+            <dl class="mt-4 flex flex-1 flex-col gap-3 text-sm leading-relaxed">
+              <div><dt class="text-xs font-semibold uppercase tracking-wider text-cemia-deep-turquoise">Problema</dt><dd class="mt-1 text-slate-600">Capacitaciones excesivamente teóricas y desconectadas de la realidad del aula.</dd></div>
+              <div><dt class="text-xs font-semibold uppercase tracking-wider text-cemia-deep-turquoise">Solución</dt><dd class="mt-1 text-slate-600">Programas de formación y acompañamiento orientados directamente a la práctica pedagógica.</dd></div>
+              <div class="mt-auto rounded-2xl bg-cemia-pearl text-cemia-navy p-4"><dt class="text-xs font-semibold uppercase tracking-wider text-cemia-deep-turquoise">Resultado esperado</dt><dd class="mt-1 font-semibold">Docentes empoderados aplicando nuevas herramientas con confianza.</dd></div>
+            </dl>
+          </article>
+          <article id="bibliotecas" class="reveal group flex flex-col rounded-3xl border border-slate-200/80 bg-white p-7 transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl hover:shadow-slate-200/50 lg:col-span-2 lg:p-8">
+            <span class="flex h-12 w-12 items-center justify-center rounded-2xl bg-cemia-mint/25 text-cemia-deep-turquoise"><i data-lucide="library" class="h-6 w-6"></i></span>
+            <h3 class="mt-5 font-display text-2xl font-bold tracking-tight text-cemia-navy">Bibliotecas educativas</h3>
+            <dl class="mt-4 flex flex-1 flex-col gap-3 text-sm leading-relaxed">
+              <div><dt class="text-xs font-semibold uppercase tracking-wider text-cemia-deep-turquoise">Problema</dt><dd class="mt-1 text-slate-600">Espacios de lectura subutilizados, desactualizados o vistos solo como depósitos.</dd></div>
+              <div><dt class="text-xs font-semibold uppercase tracking-wider text-cemia-deep-turquoise">Solución</dt><dd class="mt-1 text-slate-600">Diseño, implementación y fortalecimiento de bibliotecas como espacios vivos de aprendizaje.</dd></div>
+              <div class="mt-auto rounded-2xl bg-cemia-pearl text-cemia-navy p-4"><dt class="text-xs font-semibold uppercase tracking-wider text-cemia-deep-turquoise">Resultado esperado</dt><dd class="mt-1 font-semibold">Bibliotecas convertidas en el corazón académico de la institución.</dd></div>
+            </dl>
+          </article>
+          <article class="reveal group flex flex-col rounded-3xl border border-slate-200/80 bg-white p-7 transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl hover:shadow-slate-200/50 lg:col-span-2 lg:p-8">
+            <span class="flex h-12 w-12 items-center justify-center rounded-2xl bg-cemia-mint/25 text-cemia-deep-turquoise"><i data-lucide="award" class="h-6 w-6"></i></span>
+            <h3 class="mt-5 font-display text-2xl font-bold tracking-tight text-cemia-navy">Calidad educativa</h3>
+            <dl class="mt-4 flex flex-1 flex-col gap-3 text-sm leading-relaxed">
+              <div><dt class="text-xs font-semibold uppercase tracking-wider text-cemia-deep-turquoise">Problema</dt><dd class="mt-1 text-slate-600">Falta de alineación estratégica, procesos ineficientes y resultados estancados.</dd></div>
+              <div><dt class="text-xs font-semibold uppercase tracking-wider text-cemia-deep-turquoise">Solución</dt><dd class="mt-1 text-slate-600">Herramientas, procesos e iniciativas para fortalecer la gestión y los resultados educativos.</dd></div>
+              <div class="mt-auto rounded-2xl bg-cemia-pearl text-cemia-navy p-4"><dt class="text-xs font-semibold uppercase tracking-wider text-cemia-deep-turquoise">Resultado esperado</dt><dd class="mt-1 font-semibold">Instituciones sólidas con procesos eficientes, estandarizados y medibles.</dd></div>
+            </dl>
+          </article>
+          <article class="reveal group flex flex-col rounded-3xl border border-slate-200/80 bg-white p-7 transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl hover:shadow-slate-200/50 lg:col-span-2 lg:p-8">
+            <span class="flex h-12 w-12 items-center justify-center rounded-2xl bg-cemia-mint/25 text-cemia-deep-turquoise"><i data-lucide="puzzle" class="h-6 w-6"></i></span>
+            <h3 class="mt-5 font-display text-2xl font-bold tracking-tight text-cemia-navy">Proyectos educativos</h3>
+            <dl class="mt-4 flex flex-1 flex-col gap-3 text-sm leading-relaxed">
+              <div><dt class="text-xs font-semibold uppercase tracking-wider text-cemia-deep-turquoise">Problema</dt><dd class="mt-1 text-slate-600">Iniciativas aisladas y fragmentadas sin impacto a largo plazo demostrable.</dd></div>
+              <div><dt class="text-xs font-semibold uppercase tracking-wider text-cemia-deep-turquoise">Solución</dt><dd class="mt-1 text-slate-600">Diseño e implementación de proyectos educativos integrales adaptados a cada necesidad.</dd></div>
+              <div class="mt-auto rounded-2xl bg-cemia-pearl text-cemia-navy p-4"><dt class="text-xs font-semibold uppercase tracking-wider text-cemia-deep-turquoise">Resultado esperado</dt><dd class="mt-1 font-semibold">Proyectos sostenibles que generan transformación comprobable en la comunidad.</dd></div>
+            </dl>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- METODOLOGÍA -->
+    <section id="metodologia" class="relative bg-white py-24 lg:py-28">
+      <span class="cemi-flower pointer-events-none absolute block right-6 top-10 hidden w-20 md:block lg:right-16" data-mouth="left" data-cemi-msgs='["Primero escuchamos: el diagnóstico nos dice por dónde empezar a volar.", "Nuestro objetivo es dejar capacidades instaladas que duren en el tiempo."]' aria-hidden="true"><svg viewBox="0 0 100 130" class="block h-auto w-full"><use href="#cemiFlor"/></svg></span>
+      <div class="mx-auto max-w-7xl px-5 lg:px-8">
+        <div class="reveal mx-auto max-w-3xl text-center">
+          <span class="inline-flex items-center rounded-full bg-cemia-mint/25 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-cemia-navy">Nuestro modelo</span>
+          <h2 class="mt-5 font-display text-4xl font-extrabold tracking-tight text-cemia-navy lg:text-5xl">Nuestra metodología de transformación</h2>
+          <p class="mt-5 text-lg text-slate-600">Un proceso estructurado para garantizar que cada iniciativa educativa genere capacidades instaladas e impacto duradero.</p>
+        </div>
+        <ol class="relative mt-16 grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+          <div class="absolute left-0 right-0 top-7 hidden h-px bg-gradient-to-r from-transparent via-cemia-turquoise/50 to-transparent lg:block" aria-hidden="true"></div>
+          <li class="reveal relative rounded-3xl border border-slate-200/80 bg-white transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl hover:shadow-slate-200/50 p-7">
+            <span class="relative z-10 flex h-14 w-14 items-center justify-center rounded-2xl bg-cemia-navy text-white"><i data-lucide="scan-search" class="h-6 w-6"></i></span>
+            <p class="mt-6 text-xs font-semibold uppercase tracking-wider text-cemia-deep-turquoise">Paso 01</p>
+            <h3 class="mt-1 font-display text-xl font-bold text-cemia-navy">Diagnóstico</h3>
+            <p class="mt-2 text-sm leading-relaxed text-slate-600">Comprendemos el contexto profundo, las necesidades reales y los desafíos específicos de tu institución educativa.</p>
+          </li>
+          <li class="reveal relative rounded-3xl border border-slate-200/80 bg-white transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl hover:shadow-slate-200/50 p-7">
+            <span class="relative z-10 flex h-14 w-14 items-center justify-center rounded-2xl bg-cemia-navy text-white"><i data-lucide="pencil-ruler" class="h-6 w-6"></i></span>
+            <p class="mt-6 text-xs font-semibold uppercase tracking-wider text-cemia-deep-turquoise">Paso 02</p>
+            <h3 class="mt-1 font-display text-xl font-bold text-cemia-navy">Diseño</h3>
+            <p class="mt-2 text-sm leading-relaxed text-slate-600">Construimos una solución pedagógica adaptada milimétricamente a la realidad y los objetivos de tu comunidad.</p>
+          </li>
+          <li class="reveal relative rounded-3xl border border-slate-200/80 bg-white transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl hover:shadow-slate-200/50 p-7">
+            <span class="relative z-10 flex h-14 w-14 items-center justify-center rounded-2xl bg-cemia-navy text-white"><i data-lucide="hand-heart" class="h-6 w-6"></i></span>
+            <p class="mt-6 text-xs font-semibold uppercase tracking-wider text-cemia-deep-turquoise">Paso 03</p>
+            <h3 class="mt-1 font-display text-xl font-bold text-cemia-navy">Implementación</h3>
+            <p class="mt-2 text-sm leading-relaxed text-slate-600">Acompañamos la ejecución paso a paso en la trinchera, trabajando junto a los equipos directivos y docentes.</p>
+          </li>
+          <li class="reveal relative rounded-3xl border border-slate-200/80 bg-white transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl hover:shadow-slate-200/50 p-7">
+            <span class="relative z-10 flex h-14 w-14 items-center justify-center rounded-2xl bg-cemia-gold text-cemia-navy"><i data-lucide="chart-line" class="h-6 w-6"></i></span>
+            <p class="mt-6 text-xs font-semibold uppercase tracking-wider text-cemia-deep-turquoise">Paso 04</p>
+            <h3 class="mt-1 font-display text-xl font-bold text-cemia-navy">Medición</h3>
+            <p class="mt-2 text-sm leading-relaxed text-slate-600">Evaluamos los resultados obtenidos, los aprendizajes adquiridos y el impacto a largo plazo del proyecto.</p>
+          </li>
+        </ol>
+
+        <!-- El Vuelo de la Pluma Dorada -->
+        <div id="libro" class="reveal mt-20 overflow-hidden rounded-3xl border border-cemia-mint bg-cemia-mint/30">
+          <div class="grid items-center gap-10 p-8 lg:grid-cols-2 lg:p-14">
+            <div>
+              <span class="inline-flex items-center gap-2 rounded-full bg-white px-3 py-1 text-xs font-semibold uppercase tracking-wider text-cemia-navy"><i data-lucide="feather" class="h-3.5 w-3.5 text-cemia-dark-gold"></i>El Rincón de CEMI</span>
+              <h3 class="mt-5 font-display text-3xl font-extrabold tracking-tight text-cemia-navy lg:text-4xl">El Vuelo de la Pluma Dorada</h3>
+              <p class="mt-4 text-base leading-relaxed text-cemia-corp">CEMI es un colibrí cuyo pico es la plumilla dorada de una estilográfica. En nuestro cuento guía a los niños en el viaje de las pantallas hacia el placer de leer y escribir a mano. Es el hilo conductor de toda nuestra propuesta pedagógica.</p>
+              <div class="mt-7 flex flex-col gap-3 sm:flex-row">
+                <a href="#contacto" class="btn-gold inline-flex items-center justify-center gap-2 rounded-xl px-6 py-3.5 font-bold text-cemia-navy shadow-lg shadow-[#F2B705]/30 transition-all duration-300 hover:-translate-y-0.5 hover:brightness-105 active:scale-[0.98]">Llevar a CEMI a mi colegio</a>
+                <a href="https://wa.me/51902232412?text=Hola%20CEMIA%2C%20soy%20padre%2Fmadre%20y%20quiero%20saber%20m%C3%A1s%20sobre%20El%20Vuelo%20de%20la%20Pluma%20Dorada" target="_blank" rel="noopener" class="inline-flex items-center justify-center gap-2 rounded-xl border-2 border-cemia-navy px-6 py-3.5 font-semibold text-cemia-navy transition-all duration-300 hover:bg-cemia-navy hover:text-white">Soy padre o madre</a>
+              </div>
+            </div>
+            <div class="flex justify-center">
+              <button type="button" data-cemi-greet class="w-full max-w-sm cursor-pointer rounded-3xl text-left" aria-label="CEMI, el colibrí de CEMIA. Toca para saludar.">
+                <span class="relative block w-full" style="aspect-ratio: 1 / 0.8;">
+                  <span class="cemi-card-media absolute left-0 top-[6%] block aspect-square w-[72%]">
+                    <video class="cemi-media cemi-video" autoplay loop muted playsinline preload="auto">
+                      <source src="colibri-vuelo.webm" type="video/webm">
+                    </video>
+                    <img class="cemi-media cemi-img" alt="" width="400" height="400" decoding="async">
+                  </span>
+                  <span class="cemi-flower pointer-events-none absolute block left-[76%] top-[8%] w-[26%]" data-mouth="left" data-cemi-msgs='["¡Hola! Me llamo CEMI y mi pico es una plumilla dorada.", "En mi cuento ayudo a los niños a cambiar pantallas por libros.", "Cuando escribes a mano, tus ideas también aprenden a volar."]' aria-hidden="true"><svg viewBox="0 0 100 130" class="block h-auto w-full"><use href="#cemiFlor"/></svg></span>
+                </span>
+                <span class="cemi-card-say mt-3 block rounded-2xl bg-white px-4 py-3 text-center font-display text-sm font-bold leading-snug text-cemia-navy shadow-sm" role="status" aria-live="polite">Toca a CEMI para saludar</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TESTIMONIOS -->
+    <section id="testimonios" class="relative bg-cemia-pearl py-24 lg:py-28">
+      <span class="cemi-flower pointer-events-none absolute block left-6 top-10 hidden w-20 md:block lg:left-16" data-mouth="right" data-cemi-msgs='["Cada niño aprende a su ritmo, y eso también se celebra.", "Leer en voz alta en casa amplía el vocabulario y une a la familia."]' aria-hidden="true"><svg viewBox="0 0 100 130" class="block h-auto w-full"><use href="#cemiFlor" transform="translate(100 0) scale(-1 1)"/></svg></span>
+      <div class="mx-auto max-w-7xl px-5 lg:px-8">
+        <div class="reveal mx-auto max-w-3xl text-center">
+          <span class="inline-flex items-center rounded-full bg-cemia-mint/25 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-cemia-navy">La voz de los docentes</span>
+          <h2 class="mt-5 font-display text-4xl font-extrabold tracking-tight text-cemia-navy lg:text-5xl">Impacto que transforma la práctica</h2>
+          <p class="mt-5 text-lg text-slate-600">Nuestros programas generan cambios reales en la forma en que los educadores acompañan a sus estudiantes.</p>
+        </div>
+        <div class="mt-16 grid gap-6 md:grid-cols-2">
+          <figure class="reveal flex flex-col rounded-3xl border border-slate-200/80 bg-white p-8 transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl hover:shadow-slate-200/50">
+            <i data-lucide="quote" class="h-8 w-8 text-cemia-turquoise"></i>
+            <blockquote class="mt-5 flex-1 text-lg leading-relaxed text-cemia-corp">"Conocer estas estrategias por niveles ha sido muy importante, porque me ayuda a entender que no todos los niños aprenden de la misma manera ni al mismo ritmo."</blockquote>
+            <figcaption class="mt-6 border-t border-slate-100 text-slate-500 pt-5 text-sm font-semibold">Docente participante</figcaption>
+          </figure>
+          <figure class="reveal flex flex-col rounded-3xl border border-slate-200/80 bg-cemia-navy text-white p-8 transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl hover:shadow-slate-200/50">
+            <i data-lucide="quote" class="h-8 w-8 text-cemia-gold"></i>
+            <blockquote class="mt-5 flex-1 text-lg leading-relaxed text-slate-100">"A veces queremos que todos hagan lo mismo, pero esta propuesta me hace pensar que primero debemos conocer lo que cada niño puede hacer y, desde ahí, ayudarlo a avanzar."</blockquote>
+            <figcaption class="mt-6 border-t border-white/10 text-slate-300 pt-5 text-sm font-semibold">Docente participante</figcaption>
+          </figure>
+          <figure class="reveal flex flex-col rounded-3xl border border-slate-200/80 bg-cemia-navy text-white p-8 transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl hover:shadow-slate-200/50">
+            <i data-lucide="quote" class="h-8 w-8 text-cemia-gold"></i>
+            <blockquote class="mt-5 flex-1 text-lg leading-relaxed text-slate-100">"Esta lista de estrategias me parece muy útil porque me ayuda a saber qué puedo trabajar con mis niños y cómo ir avanzando poco a poco."</blockquote>
+            <figcaption class="mt-6 border-t border-white/10 text-slate-300 pt-5 text-sm font-semibold">Docente participante</figcaption>
+          </figure>
+          <figure class="reveal flex flex-col rounded-3xl border border-slate-200/80 bg-white p-8 transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl hover:shadow-slate-200/50">
+            <i data-lucide="quote" class="h-8 w-8 text-cemia-turquoise"></i>
+            <blockquote class="mt-5 flex-1 text-lg leading-relaxed text-cemia-corp">"Valoro mucho el trabajo porque ahora tengo una guía más clara para acompañar a mis niños según lo que cada uno pueda necesitar."</blockquote>
+            <figcaption class="mt-6 border-t border-slate-100 text-slate-500 pt-5 text-sm font-semibold">Docente participante</figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- CASOS -->
+    <section id="casos" class="bg-white py-24 lg:py-28">
+      <div class="mx-auto max-w-7xl px-5 lg:px-8">
+        <div class="reveal mx-auto max-w-3xl text-center">
+          <span class="inline-flex items-center rounded-full bg-cemia-mint/25 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-cemia-navy">Casos de estudio</span>
+          <h2 class="mt-5 font-display text-4xl font-extrabold tracking-tight text-cemia-navy lg:text-5xl">Conoce lo que podemos construir contigo</h2>
+          <p class="mt-5 text-lg text-slate-600">Estructuramos cada intervención para asegurar un camino claro desde el problema inicial hasta el éxito comprobado.</p>
+        </div>
+        <div class="reveal mt-16 overflow-hidden rounded-3xl border border-slate-200/80 bg-cemia-pearl">
+          <div class="border-b border-slate-200/80 bg-cemia-navy px-8 py-6 text-white lg:px-10">
+            <p class="text-xs font-semibold uppercase tracking-wider text-cemia-mint">Estructura de proyecto</p>
+            <h3 class="mt-1 font-display text-2xl font-bold">Transformación Educativa Integral</h3>
+            <p class="mt-1 text-sm text-slate-300">Documentos estructurados de planeamiento educativo</p>
+          </div>
+          <ol class="grid gap-px bg-slate-200/80 md:grid-cols-2 lg:grid-cols-4">
+            <li class="flex flex-col gap-3 bg-white p-7">
+              <span class="flex items-center gap-3"><span class="flex h-10 w-10 items-center justify-center rounded-xl bg-cemia-mint/25 text-cemia-deep-turquoise"><i data-lucide="target" class="h-5 w-5"></i></span><span class="font-display text-sm font-bold text-cemia-dark-gold">01</span></span>
+              <h4 class="font-display text-lg font-bold text-cemia-navy">El desafío</h4>
+              <p class="text-sm leading-relaxed text-slate-600">Identificamos las barreras críticas que impiden el desarrollo óptimo de la institución, analizando tanto el ámbito académico como de gestión.</p>
+            </li>
+            <li class="flex flex-col gap-3 bg-white p-7">
+              <span class="flex items-center gap-3"><span class="flex h-10 w-10 items-center justify-center rounded-xl bg-cemia-mint/25 text-cemia-deep-turquoise"><i data-lucide="lightbulb" class="h-5 w-5"></i></span><span class="font-display text-sm font-bold text-cemia-dark-gold">02</span></span>
+              <h4 class="font-display text-lg font-bold text-cemia-navy">La solución</h4>
+              <p class="text-sm leading-relaxed text-slate-600">Diseñamos una arquitectura pedagógica y estratégica a medida, seleccionando las herramientas exactas para abordar el problema de raíz.</p>
+            </li>
+            <li class="flex flex-col gap-3 bg-white p-7">
+              <span class="flex items-center gap-3"><span class="flex h-10 w-10 items-center justify-center rounded-xl bg-cemia-mint/25 text-cemia-deep-turquoise"><i data-lucide="users" class="h-5 w-5"></i></span><span class="font-display text-sm font-bold text-cemia-dark-gold">03</span></span>
+              <h4 class="font-display text-lg font-bold text-cemia-navy">La implementación</h4>
+              <p class="text-sm leading-relaxed text-slate-600">Desplegamos el plan trabajando codo a codo con los líderes y educadores, ajustando dinámicamente según la retroalimentación del ecosistema.</p>
+            </li>
+            <li class="flex flex-col gap-3 bg-white p-7">
+              <span class="flex items-center gap-3"><span class="flex h-10 w-10 items-center justify-center rounded-xl bg-cemia-mint/25 text-cemia-deep-turquoise"><i data-lucide="trophy" class="h-5 w-5"></i></span><span class="font-display text-sm font-bold text-cemia-dark-gold">04</span></span>
+              <h4 class="font-display text-lg font-bold text-cemia-navy">El resultado</h4>
+              <p class="text-sm leading-relaxed text-slate-600">Entregamos capacidades instaladas, procesos optimizados y métricas claras que demuestran la evolución en el aprendizaje y la gestión.</p>
+            </li>
+          </ol>
+        </div>
+      </div>
+    </section>
+
+    <!-- NOSOTROS -->
+    <section id="nosotros" class="bg-cemia-pearl py-24 lg:py-28">
+      <div class="mx-auto max-w-7xl px-5 lg:px-8">
+        <div class="grid items-center gap-12 lg:grid-cols-2">
+          <div class="reveal">
+            <span class="inline-flex items-center rounded-full bg-cemia-mint/25 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-cemia-navy">Sobre CEMIA</span>
+            <h2 class="mt-5 font-display text-4xl font-extrabold tracking-tight text-cemia-navy lg:text-5xl">Impulsamos la excelencia educativa</h2>
+            <p class="mt-6 text-lg leading-relaxed text-cemia-corp">Somos un equipo apasionado por el potencial transformador de la educación. Nuestro propósito es ser el puente entre los desafíos actuales de las instituciones y las soluciones prácticas, innovadoras y medibles que el futuro exige.</p>
+            <p class="mt-4 text-lg leading-relaxed text-cemia-corp">Con un enfoque basado en la evidencia y el diseño utilitario funcional, creemos en una educación que no deja a nadie atrás y que siembra aprendizajes para toda la vida.</p>
+            <p class="mt-6 font-display text-2xl font-bold text-cemia-deep-turquoise">Sembramos aprendizajes.</p>
+          </div>
+          <div class="reveal flex justify-center">
+            <div class="rounded-3xl border border-slate-200/80 bg-white p-10 shadow-2xl shadow-slate-200/60">
+              <img src="logo-cemia.png" alt="Logo de CEMIA, símbolo de excelencia institucional" width="320" height="320" class="h-auto w-64 lg:w-80">
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-24">
+          <h3 class="reveal text-center font-display text-3xl font-extrabold tracking-tight text-cemia-navy lg:text-4xl">¿Por qué elegir a CEMIA como aliado?</h3>
+          <div class="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+            <article class="reveal rounded-3xl border border-slate-200/80 bg-white transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl hover:shadow-slate-200/50 p-7">
+              <span class="flex h-12 w-12 items-center justify-center rounded-2xl bg-cemia-mint/25 text-cemia-deep-turquoise"><i data-lucide="ruler" class="h-6 w-6"></i></span>
+              <h4 class="mt-5 font-display text-lg font-bold text-cemia-navy">Soluciones a medida</h4>
+              <p class="mt-2 text-sm leading-relaxed text-slate-600">No aplicamos una receta única. Entendemos que cada institución y comunidad educativa tiene un ecosistema, cultura y necesidades completamente diferentes.</p>
+            </article>
+            <article class="reveal rounded-3xl border border-slate-200/80 bg-white transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl hover:shadow-slate-200/50 p-7">
+              <span class="flex h-12 w-12 items-center justify-center rounded-2xl bg-cemia-mint/25 text-cemia-deep-turquoise"><i data-lucide="handshake" class="h-6 w-6"></i></span>
+              <h4 class="mt-5 font-display text-lg font-bold text-cemia-navy">Acompañamiento</h4>
+              <p class="mt-2 text-sm leading-relaxed text-slate-600">Trabajamos junto a los equipos en la práctica, no solo entregamos manuales o contenidos estáticos. Estamos presentes durante toda la curva de aprendizaje.</p>
+            </article>
+            <article class="reveal rounded-3xl border border-slate-200/80 bg-white transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl hover:shadow-slate-200/50 p-7">
+              <span class="flex h-12 w-12 items-center justify-center rounded-2xl bg-cemia-mint/25 text-cemia-deep-turquoise"><i data-lucide="target" class="h-6 w-6"></i></span>
+              <h4 class="mt-5 font-display text-lg font-bold text-cemia-navy">Enfoque en resultados</h4>
+              <p class="mt-2 text-sm leading-relaxed text-slate-600">Definimos indicadores de éxito desde el día cero. Sabemos que los recursos son valiosos y nos enfocamos en garantizar el retorno de inversión social e institucional.</p>
+            </article>
+            <article class="reveal rounded-3xl border border-slate-200/80 bg-white transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl hover:shadow-slate-200/50 p-7">
+              <span class="flex h-12 w-12 items-center justify-center rounded-2xl bg-cemia-mint/25 text-cemia-deep-turquoise"><i data-lucide="sprout" class="h-6 w-6"></i></span>
+              <h4 class="mt-5 font-display text-lg font-bold text-cemia-navy">Sostenibilidad</h4>
+              <p class="mt-2 text-sm leading-relaxed text-slate-600">Nuestro objetivo final es hacernos innecesarios. Buscamos que las capacidades, herramientas y metodologías permanezcan arraigadas en la institución.</p>
+            </article>
+          </div>
+        </div>
+
+        <div class="reveal mt-20 flex flex-col items-center gap-5 rounded-3xl bg-cemia-mint/30 px-8 py-12 text-center ring-1 ring-cemia-mint">
+          <h3 class="font-display text-3xl font-extrabold tracking-tight text-cemia-navy">¿Tienes un desafío educativo?</h3>
+          <p class="max-w-2xl text-lg text-cemia-corp">Cuéntanos qué quieres transformar y construyamos juntos una solución que genere verdadero impacto en tu institución.</p>
+          <a href="#contacto" class="btn-gold inline-flex items-center justify-center gap-2 rounded-xl px-7 py-4 text-base font-bold text-cemia-navy shadow-lg shadow-[#F2B705]/30 transition-all duration-300 hover:-translate-y-0.5 hover:brightness-105 active:scale-[0.98]">Cuéntanos tu desafío<i data-lucide="arrow-right" class="h-5 w-5"></i></a>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section id="faq" class="bg-white py-24 lg:py-28">
+      <div class="mx-auto max-w-3xl px-5 lg:px-8">
+        <div class="reveal mx-auto max-w-3xl text-center">
+          <span class="inline-flex items-center rounded-full bg-cemia-mint/25 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-cemia-navy">Preguntas frecuentes</span>
+          <h2 class="mt-5 font-display text-4xl font-extrabold tracking-tight text-cemia-navy lg:text-5xl">Preguntas frecuentes</h2>
+          <p class="mt-5 text-lg text-slate-600">Resolvemos las dudas más comunes sobre nuestra metodología de trabajo institucional.</p>
+        </div>
+        <div class="mt-12 divide-y divide-slate-200 rounded-3xl border border-slate-200/80 bg-white">
+          <details class="group px-6 py-1">
+            <summary class="flex cursor-pointer list-none items-center justify-between gap-4 py-5 font-display text-base font-bold text-cemia-navy">¿CEMIA trabaja con colegios privados?<i data-lucide="plus" class="h-5 w-5 shrink-0 text-cemia-deep-turquoise transition-transform group-open:rotate-45"></i></summary>
+            <p class="pb-5 text-sm leading-relaxed text-slate-600">Sí. Acompañamos a colegios privados con soluciones adaptadas a su proyecto educativo, su cultura y sus metas.</p>
+          </details>
+          <details class="group px-6 py-1">
+            <summary class="flex cursor-pointer list-none items-center justify-between gap-4 py-5 font-display text-base font-bold text-cemia-navy">¿Trabajan con instituciones públicas?<i data-lucide="plus" class="h-5 w-5 shrink-0 text-cemia-deep-turquoise transition-transform group-open:rotate-45"></i></summary>
+            <p class="pb-5 text-sm leading-relaxed text-slate-600">Sí. Adaptamos nuestras propuestas a la realidad, los recursos y los procesos de cada institución. Escríbenos para evaluar tu caso.</p>
+          </details>
+          <details class="group px-6 py-1">
+            <summary class="flex cursor-pointer list-none items-center justify-between gap-4 py-5 font-display text-base font-bold text-cemia-navy">¿Pueden adaptar una solución a nuestro proyecto específico?<i data-lucide="plus" class="h-5 w-5 shrink-0 text-cemia-deep-turquoise transition-transform group-open:rotate-45"></i></summary>
+            <p class="pb-5 text-sm leading-relaxed text-slate-600">Sí. No aplicamos una receta única: partimos de un diagnóstico y diseñamos la solución según la realidad y los objetivos de tu institución.</p>
+          </details>
+          <details class="group px-6 py-1">
+            <summary class="flex cursor-pointer list-none items-center justify-between gap-4 py-5 font-display text-base font-bold text-cemia-navy">¿Trabajan con fundaciones y empresas?<i data-lucide="plus" class="h-5 w-5 shrink-0 text-cemia-deep-turquoise transition-transform group-open:rotate-45"></i></summary>
+            <p class="pb-5 text-sm leading-relaxed text-slate-600">Sí. Trabajamos con fundaciones, organizaciones sociales y empresas que impulsan proyectos educativos con impacto social.</p>
+          </details>
+          <details class="group px-6 py-1">
+            <summary class="flex cursor-pointer list-none items-center justify-between gap-4 py-5 font-display text-base font-bold text-cemia-navy">¿Pueden diseñar un proyecto educativo desde cero?<i data-lucide="plus" class="h-5 w-5 shrink-0 text-cemia-deep-turquoise transition-transform group-open:rotate-45"></i></summary>
+            <p class="pb-5 text-sm leading-relaxed text-slate-600">Sí. Diseñamos e implementamos proyectos educativos integrales, desde el diagnóstico inicial hasta la medición de resultados.</p>
+          </details>
+          <details class="group px-6 py-1">
+            <summary class="flex cursor-pointer list-none items-center justify-between gap-4 py-5 font-display text-base font-bold text-cemia-navy">¿Realizan acompañamiento después de la capacitación?<i data-lucide="plus" class="h-5 w-5 shrink-0 text-cemia-deep-turquoise transition-transform group-open:rotate-45"></i></summary>
+            <p class="pb-5 text-sm leading-relaxed text-slate-600">Sí. Acompañamos la implementación junto a los equipos directivos y docentes, porque una capacitación aislada no genera cambios sostenibles.</p>
+          </details>
+          <details class="group px-6 py-1">
+            <summary class="flex cursor-pointer list-none items-center justify-between gap-4 py-5 font-display text-base font-bold text-cemia-navy">¿Cómo se mide el impacto de los proyectos?<i data-lucide="plus" class="h-5 w-5 shrink-0 text-cemia-deep-turquoise transition-transform group-open:rotate-45"></i></summary>
+            <p class="pb-5 text-sm leading-relaxed text-slate-600">Definimos indicadores desde el inicio y evaluamos participación, aprendizaje, aplicación, cambios en prácticas, resultados institucionales e impacto del proyecto.</p>
+          </details>
+          <details class="group px-6 py-1">
+            <summary class="flex cursor-pointer list-none items-center justify-between gap-4 py-5 font-display text-base font-bold text-cemia-navy">¿Podemos solicitar una reunión para presentar nuestro desafío?<i data-lucide="plus" class="h-5 w-5 shrink-0 text-cemia-deep-turquoise transition-transform group-open:rotate-45"></i></summary>
+            <p class="pb-5 text-sm leading-relaxed text-slate-600">Claro. Completa el formulario de contacto o escríbenos por WhatsApp y coordinamos una reunión.</p>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACTO -->
+    <section id="contacto" class="relative bg-cemia-pearl py-24 lg:py-28">
+      <span class="cemi-flower pointer-events-none absolute block left-6 top-4 hidden w-16 md:block lg:left-16" data-mouth="right" data-cemi-msgs='["Tu próximo proyecto puede empezar con una conversación. ¡Escríbenos!", "Menos pantallas, más páginas. ¡Empecemos juntos!"]' aria-hidden="true"><svg viewBox="0 0 100 130" class="block h-auto w-full"><use href="#cemiFlor" transform="translate(100 0) scale(-1 1)"/></svg></span>
+      <div class="mx-auto max-w-7xl px-5 lg:px-8">
+        <div class="reveal relative overflow-hidden rounded-3xl bg-cemia-navy">
+          <div class="absolute -right-24 -top-24 h-80 w-80 rounded-full bg-cemia-turquoise/25 blur-3xl" aria-hidden="true"></div>
+          <div class="absolute -bottom-24 -left-24 h-80 w-80 rounded-full bg-cemia-gold/10 blur-3xl" aria-hidden="true"></div>
+          <div class="relative grid gap-12 p-8 lg:grid-cols-2 lg:p-14">
+            <div class="text-white">
+              <span class="inline-flex items-center rounded-full bg-white/10 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-cemia-mint ring-1 ring-white/15">Contacto</span>
+              <h2 class="mt-5 font-display text-4xl font-extrabold tracking-tight lg:text-5xl">Tu próximo proyecto educativo puede empezar con una conversación.</h2>
+              <p class="mt-5 text-lg leading-relaxed text-slate-200">Cuéntanos qué desafío quieres resolver y evaluemos juntos cómo podemos ayudarte a transformarlo en resultados concretos.</p>
+              <ul class="mt-8 space-y-4 text-sm text-slate-100">
+                <li class="flex items-center gap-3"><i data-lucide="phone" class="h-5 w-5 text-cemia-mint"></i><a href="https://wa.me/51902232412" target="_blank" rel="noopener" class="hover:underline">+51 902 232 412 (WhatsApp)</a></li>
+                <li class="flex items-center gap-3"><i data-lucide="mail" class="h-5 w-5 text-cemia-mint"></i><a href="mailto:cemia.peru@gmail.com" class="hover:underline">cemia.peru@gmail.com</a></li>
+                <li class="flex items-start gap-3"><i data-lucide="clock" class="mt-0.5 h-5 w-5 text-cemia-mint"></i><span>Lunes a viernes: 9:00 a. m. – 5:00 p. m.<br>Sábado: 9:00 a. m. – 12:00 p. m.<br>Domingo: cerrado</span></li>
+                <li class="flex items-center gap-3"><i data-lucide="map-pin" class="h-5 w-5 text-cemia-mint"></i>Lima, Perú</li>
+              </ul>
+            </div>
+
+            <form id="leadForm" class="rounded-2xl bg-white p-6 shadow-2xl shadow-black/20 lg:p-8" novalidate>
+              <div class="grid gap-4 sm:grid-cols-2">
+                <label class="block text-sm font-medium text-cemia-navy">Nombre completo
+                  <input name="nombre" required autocomplete="name" class="mt-1.5 w-full rounded-xl border border-slate-200 bg-cemia-pearl px-4 py-3 text-base text-cemia-navy outline-none transition focus:border-cemia-turquoise focus:ring-4 focus:ring-cemia-mint/30" placeholder="Ej. Ana Torres">
+                </label>
+                <label class="block text-sm font-medium text-cemia-navy">Cargo
+                  <select name="cargo" class="mt-1.5 w-full rounded-xl border border-slate-200 bg-cemia-pearl px-4 py-3 text-base text-cemia-navy outline-none transition focus:border-cemia-turquoise focus:ring-4 focus:ring-cemia-mint/30">
+                    <option>Director(a)</option><option>Promotor(a)</option><option>Coordinador(a) académico(a)</option><option>Gestor(a) educativo(a)</option><option>Fundación u organización social</option><option>Empresa</option><option>Docente</option><option>Padre / madre de familia</option>
+                  </select>
+                </label>
+                <label class="block text-sm font-medium text-cemia-navy sm:col-span-2">Institución u organización
+                  <input name="colegio" required class="mt-1.5 w-full rounded-xl border border-slate-200 bg-cemia-pearl px-4 py-3 text-base text-cemia-navy outline-none transition focus:border-cemia-turquoise focus:ring-4 focus:ring-cemia-mint/30" placeholder="Colegio, fundación u organización">
+                </label>
+                <label class="block text-sm font-medium text-cemia-navy">Correo
+                  <input name="correo" type="email" required autocomplete="email" class="mt-1.5 w-full rounded-xl border border-slate-200 bg-cemia-pearl px-4 py-3 text-base text-cemia-navy outline-none transition focus:border-cemia-turquoise focus:ring-4 focus:ring-cemia-mint/30" placeholder="nombre@colegio.edu.pe">
+                </label>
+                <label class="block text-sm font-medium text-cemia-navy">Teléfono
+                  <input name="telefono" type="tel" autocomplete="tel" class="mt-1.5 w-full rounded-xl border border-slate-200 bg-cemia-pearl px-4 py-3 text-base text-cemia-navy outline-none transition focus:border-cemia-turquoise focus:ring-4 focus:ring-cemia-mint/30" placeholder="+51 9XX XXX XXX">
+                </label>
+                <fieldset class="sm:col-span-2">
+                  <legend class="text-sm font-medium text-cemia-navy">Me interesa</legend>
+                  <div class="mt-2 flex flex-wrap gap-2">
+                    <label class="inline-flex cursor-pointer items-center gap-2 rounded-full border border-slate-200 px-4 py-2 text-sm text-cemia-corp has-[:checked]:border-cemia-turquoise has-[:checked]:bg-cemia-mint/20"><input type="checkbox" name="interes" value="Bibliotecas educativas" class="accent-[#0AA898]">Bibliotecas educativas</label>
+                    <label class="inline-flex cursor-pointer items-center gap-2 rounded-full border border-slate-200 px-4 py-2 text-sm text-cemia-corp has-[:checked]:border-cemia-turquoise has-[:checked]:bg-cemia-mint/20"><input type="checkbox" name="interes" value="Formación docente" class="accent-[#0AA898]">Formación docente</label>
+                    <label class="inline-flex cursor-pointer items-center gap-2 rounded-full border border-slate-200 px-4 py-2 text-sm text-cemia-corp has-[:checked]:border-cemia-turquoise has-[:checked]:bg-cemia-mint/20"><input type="checkbox" name="interes" value="Lectura y escritura" class="accent-[#0AA898]">Lectura y escritura</label>
+                    <label class="inline-flex cursor-pointer items-center gap-2 rounded-full border border-slate-200 px-4 py-2 text-sm text-cemia-corp has-[:checked]:border-cemia-turquoise has-[:checked]:bg-cemia-mint/20"><input type="checkbox" name="interes" value="Calidad educativa" class="accent-[#0AA898]">Calidad educativa</label>
+                    <label class="inline-flex cursor-pointer items-center gap-2 rounded-full border border-slate-200 px-4 py-2 text-sm text-cemia-corp has-[:checked]:border-cemia-turquoise has-[:checked]:bg-cemia-mint/20"><input type="checkbox" name="interes" value="Proyecto educativo" class="accent-[#0AA898]">Proyecto educativo</label>
+                  </div>
+                </fieldset>
+              </div>
+              <label class="mt-5 flex items-start gap-3 text-sm text-slate-600">
+                <input type="checkbox" name="consentimiento" required class="mt-0.5 h-4 w-4 shrink-0 accent-[#0AA898]">
+                <span>Acepto que CEMIA use mis datos para contactarme, según su <a href="privacidad.html" class="font-medium text-cemia-navy underline underline-offset-2">Política de privacidad</a>.</span>
+              </label>
+              <p id="formError" class="mt-4 hidden text-sm text-red-600" role="alert">Completa tu nombre, colegio, un correo válido y acepta la Política de privacidad.</p>
+              <button type="submit" class="btn-gold mt-6 inline-flex w-full items-center justify-center gap-2 rounded-xl px-6 py-4 text-base font-bold text-cemia-navy shadow-lg shadow-[#F2B705]/30 transition-all duration-300 hover:-translate-y-0.5 hover:brightness-105 active:scale-[0.98]">
+                Hablemos de tu proyecto<i data-lucide="arrow-right" class="h-5 w-5"></i>
+              </button>
+              <p class="mt-3 text-center text-xs text-slate-500">Al enviar se abrirá WhatsApp con tus datos. Sin compromiso.</p>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="bg-cemia-navy text-slate-300">
+    <div class="mx-auto max-w-7xl px-5 py-16 lg:px-8">
+      <div class="grid gap-12 md:grid-cols-2 lg:grid-cols-4">
+        <div class="lg:col-span-2">
+          <a href="#inicio" class="inline-flex" aria-label="CEMIA, ir al inicio"><span class="rounded-2xl bg-white p-2"><img src="logo-cemia.png" alt="Logo de CEMIA" width="96" height="96" class="h-24 w-24"></span></a>
+          <p class="mt-5 font-display text-lg font-bold text-white">Sembramos aprendizajes.</p>
+          <p class="mt-2 max-w-sm text-sm leading-relaxed">Impulsamos la transformación de las instituciones educativas mediante soluciones integrales de consultoría, capacitación y acompañamiento.</p>
+          <div class="mt-6 flex gap-3">
+            <a href="https://wa.me/51902232412" target="_blank" rel="noopener" class="flex h-10 w-10 items-center justify-center rounded-xl bg-white/5 ring-1 ring-white/10 transition hover:bg-white/10" aria-label="WhatsApp"><i data-lucide="message-circle" class="h-5 w-5"></i></a>
+            <a href="mailto:cemia.peru@gmail.com" class="flex h-10 w-10 items-center justify-center rounded-xl bg-white/5 ring-1 ring-white/10 transition hover:bg-white/10" aria-label="Correo"><i data-lucide="mail" class="h-5 w-5"></i></a>
+          </div>
+        </div>
+        <div>
+          <h3 class="text-sm font-semibold text-white">Explora</h3>
+          <ul class="mt-4 space-y-3 text-sm">
+            <li><a href="#impacto" class="hover:text-white">Impacto</a></li>
+            <li><a href="#soluciones" class="hover:text-white">Soluciones</a></li>
+            <li><a href="#metodologia" class="hover:text-white">Metodología</a></li>
+            <li><a href="#testimonios" class="hover:text-white">Testimonios</a></li>
+            <li><a href="#casos" class="hover:text-white">Casos</a></li>
+            <li><a href="#nosotros" class="hover:text-white">Nosotros</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3 class="text-sm font-semibold text-white">Contacto</h3>
+          <ul class="mt-4 space-y-3 text-sm">
+            <li><a href="https://wa.me/51902232412" target="_blank" rel="noopener" class="hover:text-white">+51 902 232 412</a></li>
+            <li><a href="mailto:cemia.peru@gmail.com" class="hover:text-white">cemia.peru@gmail.com</a></li>
+            <li>Lun – Vie: 9:00 a. m. – 5:00 p. m.</li>
+            <li>Sábado: 9:00 a. m. – 12:00 p. m.</li>
+            <li>Domingo: cerrado</li>
+          </ul>
+        </div>
+      </div>
+      <div class="mt-14 flex flex-col gap-4 border-t border-white/10 pt-8 text-xs md:flex-row md:items-center md:justify-between">
+        <p>© <span id="year">2026</span> CEMIA S.A.C. · RUC 20616076290 · Calidad Educativa · Innovación · Impacto</p>
+        <div class="flex flex-wrap gap-x-6 gap-y-2">
+          <a href="privacidad.html" class="hover:text-white">Política de privacidad</a>
+          <a href="libro-reclamaciones.html" class="inline-flex items-center gap-1.5 hover:text-white"><i data-lucide="book-open" class="h-3.5 w-3.5"></i>Libro de Reclamaciones</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- WhatsApp flotante -->
+  <a href="https://wa.me/51902232412?text=Hola%20CEMIA%2C%20quiero%20informaci%C3%B3n" target="_blank" rel="noopener" class="fixed bottom-5 right-5 z-40 flex h-14 w-14 items-center justify-center rounded-full bg-cemia-deep-turquoise text-white shadow-xl shadow-cemia-deep-turquoise/40 transition hover:scale-105 active:scale-95" aria-label="Escríbenos por WhatsApp">
+    <i data-lucide="message-circle" class="h-6 w-6"></i>
+  </a>
+
+  <script>
+    lucide.createIcons();
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Menú móvil
+    const btn = document.getElementById('menuBtn');
+    const menu = document.getElementById('mobileMenu');
+    btn.addEventListener('click', () => {
+      const open = menu.classList.toggle('hidden') === false;
+      btn.setAttribute('aria-expanded', String(open));
+      btn.setAttribute('aria-label', open ? 'Cerrar menú' : 'Abrir menú');
+    });
+    menu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+      menu.classList.add('hidden');
+      btn.setAttribute('aria-expanded', 'false');
+    }));
+
+    // Animación de aparición
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('is-visible'); io.unobserve(e.target); } });
+    }, { threshold: 0.12 });
+    document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+    // Formulario → WhatsApp
+    document.getElementById('leadForm').addEventListener('submit', (ev) => {
+      ev.preventDefault();
+      const f = ev.target;
+      const err = document.getElementById('formError');
+      const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(f.correo.value.trim());
+      if (!f.nombre.value.trim() || !f.colegio.value.trim() || !emailOk || !f.consentimiento.checked) { err.classList.remove('hidden'); return; }
+      err.classList.add('hidden');
+      const intereses = [...f.querySelectorAll('input[name="interes"]:checked')].map(i => i.value).join(', ') || 'Por definir';
+      const msg = `Hola CEMIA, quiero conversar sobre un proyecto educativo.%0A` +
+        `Nombre: ${encodeURIComponent(f.nombre.value.trim())}%0A` +
+        `Cargo: ${encodeURIComponent(f.cargo.value)}%0A` +
+        `Institución: ${encodeURIComponent(f.colegio.value.trim())}%0A` +
+        `Correo: ${encodeURIComponent(f.correo.value.trim())}%0A` +
+        `Teléfono: ${encodeURIComponent(f.telefono.value.trim())}%0A` +
+        `Interés: ${encodeURIComponent(intereses)}`;
+      window.open(`https://wa.me/51902232412?text=${msg}`, '_blank', 'noopener');
+    });
+
+    // ===== CEMI: colibrí que sigue el mouse, el scroll y visita flores =====
+    (function () {
+      const isSafari = /^((?!chrome|chromium|android|crios|fxios|edg).)*safari/i.test(navigator.userAgent);
+      const canWebm = !!document.createElement('video').canPlayType('video/webm; codecs="vp9"');
+
+      function setupMedia(root) {
+        const v = root.querySelector('video');
+        const im = root.querySelector('.cemi-img');
+        const useImg = () => {
+          try { v.pause(); } catch (e) {}
+          im.addEventListener('load', () => root.classList.add('has-img'), { once: true });
+          im.src = 'cemi-vuelo.webp';
+        };
+        if (isSafari || !canWebm) { useImg(); return { video: null }; }
+        const ok = () => { root.classList.add('has-video'); v.play().catch(() => {}); };
+        if (v.readyState >= 2) ok(); else v.addEventListener('loadeddata', ok, { once: true });
+        const src = v.querySelector('source');
+        if (src) src.addEventListener('error', useImg, { once: true });
+        return { video: v };
+      }
+
+      const fly = document.getElementById('cemiFly');
+      const btn = document.getElementById('cemiBtn');
+      const hop = fly.querySelector('.cemi-hop');
+      const flip = fly.querySelector('.cemi-flip');
+      const bubble = document.getElementById('cemiBubble');
+      const flyMedia = setupMedia(flip);
+      document.querySelectorAll('.cemi-card-media').forEach(setupMedia);
+
+      const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const fine = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+      const hasGsap = typeof gsap !== 'undefined';
+
+      const fallbackMsgs = [
+        '¡Hola! Me llamo CEMI. Busco flores... y buenos libros.',
+        '¡Hola! Soy CEMI. Leer es como volar: cada libro te lleva a un lugar nuevo.'
+      ];
+      let fbIndex = 0;
+      const msgIndex = new WeakMap();
+      function msgFrom(el) {
+        let list = fallbackMsgs;
+        try { list = JSON.parse(el.dataset.cemiMsgs); } catch (e) {}
+        const i = msgIndex.get(el) || 0; msgIndex.set(el, i + 1);
+        return list[i % list.length];
+      }
+      function pulse(el) {
+        if (!hasGsap || reduce) return;
+        gsap.fromTo(el, { scale: 1 }, { scale: 1.08, duration: 0.22, ease: 'sine.inOut', yoyo: true, repeat: 1, overwrite: 'auto' });
+      }
+
+      // ---- Globo de diálogo (siempre dentro de la pantalla) ----
+      let bubbleUntil = 0;
+      function placeBubble(x, y, s) {
+        const bw = bubble.offsetWidth, bh = bubble.offsetHeight, W = window.innerWidth, H = window.innerHeight;
+        const left = Math.max(bw / 2 + 8, Math.min(W - bw / 2 - 8, x));
+        let bottom = y - s * 0.42, below = false;
+        if (bottom - bh < 88) { bottom = y + s * 0.45 + bh; below = true; }
+        bottom = Math.min(H - 8, bottom);
+        bubble.classList.toggle('is-below', below);
+        bubble.style.transform = `translate3d(${left}px, ${bottom}px, 0) translate(-50%, -100%)`;
+      }
+      function say(text, ms) {
+        bubble.textContent = text;
+        bubble.classList.add('is-on');
+        bubbleUntil = performance.now() + ms;
+      }
+
+      // ---- Flores ----
+      const inView = (el) => {
+        const r = el.getBoundingClientRect();
+        return r.width > 0 && r.bottom > 90 && r.top < window.innerHeight - 20 && r.right > 0 && r.left < window.innerWidth;
+      };
+      function mouthOf(el) {
+        const r = el.getBoundingClientRect();
+        const left = el.dataset.mouth !== 'right';
+        return { x: r.left + r.width * (left ? 0.08 : 0.92), y: r.top + r.height * (88 / 130), left };
+      }
+      function pickFlower(x, y) {
+        const list = [...document.querySelectorAll('.cemi-flower')].filter((el) => !el.closest('[data-cemi-greet]') && inView(el));
+        if (!list.length) return null;
+        list.sort((a, b) => { const ma = mouthOf(a), mb = mouthOf(b); return Math.hypot(ma.x - x, ma.y - y) - Math.hypot(mb.x - x, mb.y - y); });
+        return list[0];
+      }
+
+      let visit = null;
+      btn.addEventListener('click', () => {
+        const r = btn.getBoundingClientRect();
+        const cx = r.left + r.width / 2, cy = r.top + r.height / 2;
+        if (reduce) {
+          say(fallbackMsgs[fbIndex++ % fallbackMsgs.length], 4200);
+          placeBubble(cx, cy, r.width);
+          setTimeout(() => { bubble.classList.remove('is-on'); bubbleUntil = 0; }, 4200);
+          return;
+        }
+        const f = pickFlower(cx, cy);
+        if (f) {
+          visit = { el: f, until: performance.now() + 6000 };
+          say(msgFrom(f), 6000);
+        } else {
+          say(fallbackMsgs[fbIndex++ % fallbackMsgs.length], 4000);
+          pulse(hop);
+        }
+      });
+
+      // ---- CEMI de la sección "El Vuelo de la Pluma Dorada" ----
+      document.querySelectorAll('[data-cemi-greet]').forEach((b) => {
+        const media = b.querySelector('.cemi-card-media');
+        const flower = b.querySelector('.cemi-flower');
+        const sayEl = b.querySelector('.cemi-card-say');
+        const idle = sayEl.textContent;
+        b.addEventListener('click', () => {
+          sayEl.textContent = msgFrom(flower);
+          b.classList.add('is-talking');
+          if (hasGsap && !reduce) gsap.to(media, { xPercent: 11.5, yPercent: 0, duration: 0.9, ease: 'sine.inOut', overwrite: 'auto' });
+          clearTimeout(b._t);
+          b._t = setTimeout(() => {
+            if (hasGsap && !reduce) gsap.to(media, { xPercent: 0, duration: 1, ease: 'sine.inOut', overwrite: 'auto' });
+            b.classList.remove('is-talking');
+            sayEl.textContent = idle;
+          }, 5600);
+        });
+      });
+
+      if (reduce) { fly.classList.add('is-static'); return; }
+
+      // ---- Física de vuelo ----
+      const st = { x: window.innerWidth * 0.75, y: window.innerHeight * 0.24, vx: 0, vy: 0, face: 1, ang: 0, rot: 0 };
+      let mouse = null, settle = null, lastScroll = window.scrollY, scrollKick = 0, lastRate = 1;
+
+      window.addEventListener('mousemove', (e) => { mouse = { x: e.clientX, y: e.clientY }; }, { passive: true });
+      document.addEventListener('mouseleave', () => { mouse = null; });
+      window.addEventListener('scroll', () => {
+        const d = window.scrollY - lastScroll; lastScroll = window.scrollY; scrollKick += d;
+      }, { passive: true });
+
+      const pathDesk = [[0.75, 0.2], [0.12, 0.45], [0.82, 0.6], [0.5, 0.78]];
+      const pathMob = [[0.82, 0.16], [0.12, 0.46], [0.86, 0.6], [0.5, 0.84]];
+      function pathTarget() {
+        const max = document.documentElement.scrollHeight - window.innerHeight;
+        const p = max > 0 ? Math.min(1, window.scrollY / max) : 0;
+        const pts = window.innerWidth < 768 ? pathMob : pathDesk;
+        const seg = Math.min(pts.length - 1.0001, p * (pts.length - 1));
+        const i = Math.floor(seg), t = seg - i, e = t * t * (3 - 2 * t);
+        return {
+          x: (pts[i][0] + (pts[i + 1][0] - pts[i][0]) * e) * window.innerWidth,
+          y: (pts[i][1] + (pts[i + 1][1] - pts[i][1]) * e) * window.innerHeight
+        };
+      }
+
+      let last = performance.now();
+      function frame(now) {
+        const dt = Math.min(50, now - last) / 16.667; last = now;
+        const t = now / 1000, s = fly.offsetWidth, half = s / 2;
+        let tx, ty, k = 0.016, wander = 1, forcedFace = 0, near = false;
+
+        if (visit && (now > visit.until || !inView(visit.el))) {
+          visit = null; settle = { x: st.x, y: st.y };
+        }
+
+        if (visit) {
+          // Vuela hasta la flor y pone la plumilla de su pico en la boca de la flor
+          const m = mouthOf(visit.el);
+          const face = m.left ? 1 : -1;
+          tx = m.x - 0.47 * s * face;
+          ty = m.y + 0.16 * s;
+          near = Math.hypot(tx - st.x, ty - st.y) < 170;
+          if (near) { forcedFace = face; k = 0.03; }
+          wander = near ? 0.12 : 0.5;
+        } else if (fine && mouse) {
+          const dx = mouse.x - st.x, dy = mouse.y - st.y;
+          if (!settle || Math.hypot(dx, dy) > 240) {
+            const side = dx >= 0 ? -1 : 1;
+            settle = { x: mouse.x + side * (half + 36), y: mouse.y - half * 0.55 };
+          }
+          tx = settle.x; ty = settle.y;
+        } else if (fine && settle) {
+          tx = settle.x; ty = settle.y;
+        } else {
+          const p = pathTarget(); tx = p.x; ty = p.y;
+        }
+
+        tx += (Math.sin(t * 0.8) * 16 + Math.sin(t * 2.1) * 5) * wander;
+        ty += (Math.cos(t * 1.1) * 10 + Math.sin(t * 3.3) * 4) * wander;
+        if (!visit) {
+          tx = Math.max(half + 8, Math.min(window.innerWidth - half - 8, tx));
+          ty = Math.max(half + 84, Math.min(window.innerHeight - half - 8, ty));
+        }
+
+        st.vy -= scrollKick * (visit ? 0.02 : 0.05); scrollKick = 0;
+
+        const damp = Math.pow(0.86, dt);
+        st.vx = (st.vx + (tx - st.x) * k * dt) * damp;
+        st.vy = (st.vy + (ty - st.y) * k * dt) * damp;
+        const sp = Math.hypot(st.vx, st.vy), maxV = 26;
+        if (sp > maxV) { st.vx *= maxV / sp; st.vy *= maxV / sp; }
+        st.x += st.vx * dt; st.y += st.vy * dt;
+
+        if (forcedFace) st.face = forcedFace;
+        else if (st.vx > 1.4) st.face = 1;
+        else if (st.vx < -1.4) st.face = -1;
+        st.ang += ((st.face > 0 ? 0 : 180) - st.ang) * Math.min(1, 0.14 * dt);
+        let rotTarget = Math.max(-14, Math.min(22, Math.abs(st.vx) * 1.3 + st.vy * 0.9));
+        if (near) rotTarget *= 0.25;
+        st.rot += (rotTarget - st.rot) * Math.min(1, 0.12 * dt);
+
+        fly.style.transform = `translate3d(${st.x - half}px, ${st.y - half}px, 0)`;
+        flip.style.transform = `perspective(700px) rotateY(${st.ang}deg) rotateZ(${st.rot}deg)`;
+
+        if (flyMedia.video) {
+          const rate = Math.min(1.8, 1 + sp * 0.035);
+          if (Math.abs(rate - lastRate) > 0.06) { flyMedia.video.playbackRate = rate; lastRate = rate; }
+        }
+
+        if (bubbleUntil) {
+          if (now > bubbleUntil) { bubble.classList.remove('is-on'); bubbleUntil = 0; }
+          else placeBubble(st.x, st.y, s);
+        }
+        requestAnimationFrame(frame);
+      }
+      requestAnimationFrame(frame);
+
+      if (hasGsap && typeof ScrollTrigger !== 'undefined') {
+        gsap.registerPlugin(ScrollTrigger);
+        const libro = document.getElementById('libro');
+        if (libro) {
+          ScrollTrigger.create({
+            trigger: libro, start: 'top 70%', end: 'bottom 30%',
+            onToggle: (self) => gsap.to(fly, { autoAlpha: self.isActive ? 0 : 1, duration: 0.4, overwrite: 'auto' })
+          });
+        }
+      }
+    })();
+    // Pausar animaciones SVG si el usuario prefiere menos movimiento
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      document.querySelectorAll('svg').forEach(s => { try { s.pauseAnimations(); } catch (e) {} });
+    }
+  </script>
+</body>
+</html>
