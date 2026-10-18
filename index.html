@@ -321,21 +321,27 @@
     @keyframes drift{to{transform:translate3d(var(--dx,30px),var(--dy,-24px),0) scale(1.08)}}
     .wordmark{position:absolute;inset:0;z-index:-1;display:flex;align-items:center;justify-content:center;padding:0 3vw;pointer-events:none}
     .wordmark span{display:inline-block;white-space:nowrap;font-family:var(--f-display);font-weight:800;line-height:.8;letter-spacing:-.02em;color:#fff;text-shadow:0 30px 80px rgba(15,44,92,.12);will-change:transform}
-    .step{position:absolute;z-index:2;width:min(19rem,80vw);border-radius:16px;padding:1.3rem 1.4rem;background:rgba(255,255,255,.62);backdrop-filter:blur(18px) saturate(1.3);-webkit-backdrop-filter:blur(18px) saturate(1.3);box-shadow:inset 0 0 0 1px rgba(255,255,255,.8),0 24px 60px -28px rgba(15,44,92,.45)}
-    .step b{display:block;font-family:var(--f-display);font-weight:800;font-size:clamp(2.6rem,4.6vw,3.8rem);line-height:1;color:var(--navy);font-variant-numeric:tabular-nums}
-    .step .mono{display:block;margin-top:.6rem;color:var(--tq2)}
-    .step p{margin-top:.35rem;font-size:.92rem;line-height:1.5;color:var(--corp)}
-    .step.s1{left:var(--gx);bottom:9%}
-    .step.s2{right:var(--gx);bottom:27%}
-    .hover-cap{position:absolute;top:96px;left:var(--gx);z-index:2}
+    .hover{flex-direction:column;align-items:stretch;justify-content:flex-start;padding:112px var(--gx) 64px}
+    .hover-cap{position:relative;z-index:2}
     .hover-cap .eyebrow{color:var(--tq2)}
-    .hover-cap p.h{margin-top:.6rem;font-family:var(--f-display);font-weight:800;font-size:clamp(1.2rem,2vw,1.6rem);max-width:16ch;line-height:1.15;color:var(--navy)}
-    @media (max-width:767px){
-      .hover{flex-direction:column;justify-content:flex-start;padding:170px 16px 40px;gap:0}
-      .step{position:relative;left:auto;right:auto;bottom:auto;width:76%}
-      .step.s1{align-self:flex-start;margin-top:-4vh}
-      .step.s2{align-self:flex-end;margin-top:.8rem}
-      .hover-cap{top:84px}
+    .hover-cap p.h{margin-top:.6rem;font-family:var(--f-display);font-weight:800;font-size:clamp(1.2rem,2vw,1.6rem);max-width:18ch;line-height:1.15;color:var(--navy)}
+    .hover-cap p.sub{margin-top:.5rem;font-size:.85rem;color:var(--corp)}
+    .hv-stage{position:relative;flex:1;min-height:46vh;display:flex;align-items:center;justify-content:center}
+    .steps{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;align-items:end;position:relative;z-index:2}
+    .step{border-radius:16px;padding:1.2rem 1.3rem;background:rgba(255,255,255,.66);backdrop-filter:blur(18px) saturate(1.3);-webkit-backdrop-filter:blur(18px) saturate(1.3);box-shadow:inset 0 0 0 1px rgba(255,255,255,.85),0 24px 60px -28px rgba(15,44,92,.45)}
+    .step b{display:block;font-family:var(--f-display);font-weight:800;font-size:clamp(2.2rem,3.6vw,3.2rem);line-height:1;color:var(--navy)}
+    .step .mono{display:block;margin-top:.6rem;color:var(--tq2)}
+    .step p{margin-top:.35rem;font-size:.9rem;line-height:1.5;color:var(--corp)}
+    /* escalera: cada paso un poco más arriba */
+    .steps .step:nth-child(2){margin-bottom:24px}.steps .step:nth-child(3){margin-bottom:48px}.steps .step:nth-child(4){margin-bottom:72px}
+    @media (max-width:899px){
+      .hover{padding:96px 16px 48px}
+      .hv-stage{min-height:40vh}
+      .steps{grid-template-columns:1fr 1fr;align-items:start;gap:.75rem}
+      .steps .step:nth-child(n){margin-bottom:0}
+      .steps .step:nth-child(even){margin-top:1.4rem}
+      .step{padding:1rem}
+      .step p{font-size:.82rem}
     }
 
     /* ---------------- CEMI volador ---------------- */
@@ -406,7 +412,7 @@
      0.28–0.60  las páginas del libro se cierran alrededor de la vista; CEMI y el suelo suben
      0.50–0.80  mensaje principal y CTAs
      0.70–1.00  todo sube y el suelo da paso a la página -->
-<section class="stage" id="top" aria-label="Inicio" style="height:400svh">
+<section class="stage" id="top" aria-label="Inicio" style="height:320svh">
   <div class="pin svh">
     <div class="layer" data-l="sky">
       <svg viewBox="0 0 1600 900" preserveAspectRatio="xMidYMax slice" aria-hidden="true">
@@ -480,12 +486,28 @@
     <div class="layer" data-l="ground">
       <svg viewBox="0 0 1600 900" preserveAspectRatio="xMidYMax slice" aria-hidden="true">
         <path d="M0 772 C300 734 600 790 800 760 C1000 732 1300 780 1600 750 V900 H0Z" fill="#0A1F44"/>
-        <!-- pila de libros bajo CEMI -->
-        <g>
-          <rect x="650" y="716" width="300" height="46" rx="6" fill="#203864"/><rect x="650" y="716" width="300" height="9" rx="4" fill="#2EBFA5"/>
-          <rect x="680" y="674" width="245" height="42" rx="6" fill="#0AA898"/><rect x="896" y="674" width="12" height="42" fill="#F2F2F2" opacity=".55"/>
-          <rect x="665" y="638" width="268" height="36" rx="6" fill="#F2F2F2"/><path d="M665 650 H933" stroke="#203864" stroke-opacity=".2" stroke-width="3"/>
-          <rect x="702" y="604" width="214" height="34" rx="6" fill="#7DD3C0"/><rect x="720" y="604" width="10" height="34" fill="#0F2C5C" opacity=".35"/>
+        <!-- pila de libros con colores corporativos (suben uno a uno) -->
+        <g font-family="Plus Jakarta Sans, sans-serif" font-weight="800" text-anchor="middle">
+          <g class="bk" data-i="0">
+            <rect x="640" y="714" width="320" height="50" rx="6" fill="#0F2C5C"/>
+            <rect x="660" y="714" width="7" height="50" fill="#F2B705"/><rect x="933" y="714" width="7" height="50" fill="#F2B705"/>
+            <text x="800" y="747" font-size="22" letter-spacing="9" fill="#ffffff">CEMIA</text>
+          </g>
+          <g class="bk" data-i="1">
+            <rect x="672" y="670" width="262" height="44" rx="6" fill="#2EBFA5"/>
+            <rect x="690" y="670" width="6" height="44" fill="#0F2C5C"/><rect x="910" y="670" width="6" height="44" fill="#0F2C5C"/>
+            <text x="803" y="698" font-size="15" letter-spacing="6" fill="#0F2C5C">LECTURA</text>
+          </g>
+          <g class="bk" data-i="2">
+            <rect x="656" y="632" width="284" height="38" rx="6" fill="#F2F2F2"/>
+            <rect x="656" y="632" width="284" height="5" rx="2" fill="#203864"/><rect x="656" y="665" width="284" height="5" rx="2" fill="#203864"/>
+            <text x="798" y="657" font-size="14" letter-spacing="6" fill="#203864">ESCRITURA</text>
+          </g>
+          <g class="bk" data-i="3">
+            <rect x="694" y="598" width="226" height="34" rx="6" fill="#7DD3C0"/>
+            <rect x="708" y="598" width="6" height="34" fill="#0AA898"/><rect x="900" y="598" width="6" height="34" fill="#0AA898"/>
+            <text x="807" y="620" font-size="11" letter-spacing="4" fill="#0F2C5C">INICIAL · PRIMARIA</text>
+          </g>
         </g>
       </svg>
       <div class="apron"></div>
@@ -534,25 +556,23 @@
     <i style="--c:#ffffff;width:3.5vmax;height:3.5vmax;right:8%;top:52%;--bl:2px;--o:.7;--t:9s"></i>
     <i style="--c:#0AA898;width:7vmax;height:7vmax;right:34%;top:70%;--bl:18px;--o:.35;--t:17s"></i>
   </div>
-  <div class="wordmark" aria-hidden="true"><span id="wm">CEMIA</span></div>
-
   <div class="hover-cap" data-reveal>
     <p class="mono eyebrow">Conoce a CEMI</p>
     <p class="h" id="hov-t">El colibrí que vuela de la pantalla al papel.</p>
+    <p class="sub">Inicial y Primaria · alineados a la R.M. N.° 586-2026-MINEDU</p>
   </div>
 
-  <div class="cemi-perch big" aria-hidden="true"></div>
+  <div class="hv-stage">
+    <div class="wordmark" aria-hidden="true"><span id="wm">CEMIA</span></div>
+    <div class="cemi-perch big" aria-hidden="true"></div>
+  </div>
 
-  <div class="step s1">
-    <b><span class="js-num" data-to="4">0</span></b>
-    <span class="mono">Pasos de trabajo</span>
-    <p>Diagnóstico, diseño, implementación y medición.</p>
-  </div>
-  <div class="step s2">
-    <b><span class="js-num" data-to="2">0</span></b>
-    <span class="mono">Niveles educativos</span>
-    <p>Inicial y Primaria, alineados a la R.M. N.° 586-2026-MINEDU.</p>
-  </div>
+  <ol class="steps" aria-label="Nuestros cuatro pasos">
+    <li class="step" data-reveal><b>01</b><span class="mono">Diagnóstico</span><p>Entendemos el contexto y las necesidades reales de tu colegio.</p></li>
+    <li class="step" data-reveal style="transition-delay:120ms"><b>02</b><span class="mono">Diseño</span><p>Creamos una solución pedagógica a la medida de tu comunidad.</p></li>
+    <li class="step" data-reveal style="transition-delay:240ms"><b>03</b><span class="mono">Implementación</span><p>Acompañamos en el aula a directivos y docentes.</p></li>
+    <li class="step" data-reveal style="transition-delay:360ms"><b>04</b><span class="mono">Medición</span><p>Evaluamos aprendizajes e impacto con indicadores claros.</p></li>
+  </ol>
 </section>
 
 <!-- ============ EL RETO vs NUESTRA RESPUESTA ============ -->
@@ -931,6 +951,7 @@
   (function hero() {
     const root = $('#top');
     const L = {}; $$('.layer', root).forEach((el) => (L[el.dataset.l] = el));
+    const books = $$('.bk', root);
     const veil = $('#veil'), title = $('#hTitle'), msg = $('#hMsg'), hud = $('#hud'), clock = $('#clock'), elev = $('#elev');
     const cv = $('#dust'), ctx = cv.getContext('2d');
     const sync = () => { const d = Math.min(devicePixelRatio || 1, 2); cv.width = Math.round(cv.clientWidth * d); cv.height = Math.round(cv.clientHeight * d); };
@@ -956,7 +977,7 @@
       } else if (cv.style.opacity !== '0') { ctx.clearRect(0, 0, cv.width, cv.height); }
       if (Math.abs(p - lastP) < .00005) return; lastP = p;
 
-      const exit = range(p, .7, 1), settle = ease(range(p, 0, .5));
+      const exit = 0, settle = ease(range(p, 0, .5));   // sin pantalla vacía al final: la sección se suelta con el mensaje visible
       veil.style.opacity = v; cv.style.opacity = v;
       veil.style.transform = `translate3d(0,${-range(p, 0, .18) * 24}vh,0) scale(${1 + range(p, 0, .18) * .25})`;
       veil.style.visibility = v < .001 ? 'hidden' : 'visible';
@@ -970,7 +991,8 @@
       const up = ease(range(p, .36, .62));
       set('cemi', lerp(28, 0, up) - exit * 58, 1, clamp(up * 2));
       const gr = ease(range(p, .34, .6));
-      set('ground', lerp(36, 0, gr) - exit * 78);
+      set('ground', lerp(36, 0, gr));
+      books.forEach((bk, i) => { const k = ease(range(p, .36 + i * .05, .56 + i * .05)); bk.setAttribute('transform', `translate(0 ${(lerp(-140 - i * 40, 0, k)).toFixed(1)})`); bk.style.opacity = clamp(k * 1.6); });
 
       const tIn = ease(range(p, .08, .24)), tOut = range(p, .42, .52);
       title.style.opacity = tIn * (1 - tOut);
@@ -978,7 +1000,7 @@
       title.style.transform = `translate3d(0,${-p * 6}vh,0)`;
       title.style.filter = tIn < .99 ? `blur(${(1 - tIn) * 10}px)` : '';
 
-      const mIn = ease(range(p, .5, .6)), mOut = range(p, .76, .84), mo = mIn * (1 - mOut);
+      const mIn = ease(range(p, .5, .62)), mOut = 0, mo = mIn;
       msg.style.opacity = mo; msg.style.transform = `translate3d(0,${lerp(4, 0, mIn) - mOut * 10}vh,0)`;
       if ((mo > .5) !== msgOn) { msgOn = mo > .5; msg.style.pointerEvents = msgOn ? 'auto' : 'none'; }
 
@@ -1106,7 +1128,7 @@
   /* ---------- CEMI de frente: palabra gigante, flotación y saludo ---------- */
   (function hoverWord() {
     const root = $('#conoce-cemi'), wm = $('#wm');
-    const fit = () => { wm.style.fontSize = '100px'; const avail = root.clientWidth * .94; wm.style.fontSize = (100 * avail / wm.offsetWidth) + 'px'; };
+    const fit = () => { wm.style.fontSize = '100px'; const avail = $('.hv-stage').clientWidth; wm.style.fontSize = (100 * avail / wm.offsetWidth) + 'px'; };
     fit(); document.fonts && document.fonts.ready.then(fit); new ResizeObserver(fit).observe(root);
     const nums = $$('.js-num', root); let counted = false;
     subs.push(() => {
