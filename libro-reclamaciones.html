@@ -10,6 +10,18 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
   <link rel="canonical" href="https://cemiaperu-svg.github.io/cemia-web/libro-reclamaciones.html">
   <link rel="stylesheet" href="styles.css">
+  <script src="config.js"></script>
+  <script>
+    (function () {
+      var id = (window.CEMIA_CONFIG || {}).gaId;
+      window.dataLayer = window.dataLayer || [];
+      window.gtag = function () { dataLayer.push(arguments); };
+      if (!id) return;
+      var sc = document.createElement('script'); sc.async = true; sc.src = 'https://www.googletagmanager.com/gtag/js?id=' + id;
+      document.head.appendChild(sc);
+      gtag('js', new Date()); gtag('config', id, { anonymize_ip: true });
+    })();
+  </script>
 </head>
 <body class="bg-cemia-pearl font-sans text-cemia-corp antialiased">
   <!-- BASE: validar con un abogado. Completar el domicilio fiscal. Para cumplimiento pleno conviene un servicio
@@ -127,7 +139,6 @@
     © 2026 CEMIA S.A.C. · RUC 20616076290 · <a href="privacidad.html" class="hover:text-white">Política de privacidad</a>
   </footer>
 
-  <script src="config.js"></script>
   <script>
     const hoy = new Date();
     document.getElementById('lrFecha').textContent = hoy.toLocaleDateString('es-PE', { day: '2-digit', month: 'long', year: 'numeric' });
@@ -173,6 +184,7 @@
         }) }).catch(() => {});
         document.getElementById('lrNota').textContent = 'Tu hoja quedó registrada y te enviamos una copia a tu correo. Puedes guardar también esta copia:';
       }
+      if (window.gtag) gtag('event', 'libro_reclamaciones_envio', { tipo: tipo.value });
       document.getElementById('lrCodigo').textContent = codigo;
       document.getElementById('lrResumen').textContent = resumen;
       document.getElementById('lrMail').href = `mailto:cemia.peru@gmail.com?cc=${encodeURIComponent(f.elements.correo.value.trim())}&subject=${encodeURIComponent('Libro de Reclamaciones ' + codigo)}&body=${encodeURIComponent(resumen)}`;

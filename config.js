@@ -3,5 +3,5 @@ window.CEMIA_CONFIG = {
   // URL de la Aplicación web de Apps Script (termina en /exec). Guarda clientes y reclamaciones en Google Sheets.
   sheetsEndpoint: '',
   // ID de medición de Google Analytics 4 (formato G-XXXXXXXXXX)
-  gaId: ''
+  gaId: 'G-09621D94BN'
 };

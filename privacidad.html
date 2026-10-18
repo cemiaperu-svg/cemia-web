@@ -10,6 +10,18 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
   <link rel="canonical" href="https://cemiaperu-svg.github.io/cemia-web/privacidad.html">
   <link rel="stylesheet" href="styles.css">
+  <script src="config.js"></script>
+  <script>
+    (function () {
+      var id = (window.CEMIA_CONFIG || {}).gaId;
+      window.dataLayer = window.dataLayer || [];
+      window.gtag = function () { dataLayer.push(arguments); };
+      if (!id) return;
+      var sc = document.createElement('script'); sc.async = true; sc.src = 'https://www.googletagmanager.com/gtag/js?id=' + id;
+      document.head.appendChild(sc);
+      gtag('js', new Date()); gtag('config', id, { anonymize_ip: true });
+    })();
+  </script>
 </head>
 <body class="bg-cemia-pearl font-sans text-cemia-corp antialiased">
   <!-- BORRADOR BASE: revisar con un abogado antes de publicar. Completar el domicilio fiscal. -->
