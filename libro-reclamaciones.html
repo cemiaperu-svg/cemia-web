@@ -113,11 +113,11 @@
 
     <section id="lrResultado" class="mt-6 hidden rounded-3xl border border-cemia-turquoise bg-white p-6 lg:p-8" aria-live="polite">
       <h2 class="font-display text-xl font-bold text-cemia-navy">Hoja de reclamación generada</h2>
-      <p class="mt-2 text-sm">Código: <strong id="lrCodigo" class="text-cemia-navy"></strong>. Guarda una copia y envíala a CEMIA para completar el registro:</p>
+      <p class="mt-2 text-sm">Código: <strong id="lrCodigo" class="text-cemia-navy"></strong>. <span id="lrNota">Guarda una copia y envíala a CEMIA para completar el registro:</span></p>
       <pre id="lrResumen" class="mt-4 max-h-80 overflow-auto whitespace-pre-wrap rounded-2xl bg-cemia-pearl p-4 text-xs text-cemia-corp"></pre>
       <div class="mt-4 flex flex-col gap-3 sm:flex-row">
         <a id="lrMail" class="inline-flex items-center justify-center rounded-xl bg-cemia-navy px-5 py-3 text-sm font-semibold text-white">Enviar por correo</a>
-        <a id="lrWa" target="_blank" rel="noopener" class="inline-flex items-center justify-center rounded-xl border-2 border-cemia-navy px-5 py-3 text-sm font-semibold text-cemia-navy">Enviar por WhatsApp</a>
+        <a id="lrWa" target="_blank" rel="noopener" class="inline-flex items-center justify-center rounded-xl bg-[#128C4A] px-5 py-3 text-sm font-semibold text-white">Continuar por WhatsApp</a>
         <button id="lrCopy" type="button" class="inline-flex items-center justify-center rounded-xl border border-slate-200 px-5 py-3 text-sm font-semibold text-cemia-navy">Copiar hoja</button>
       </div>
     </section>
@@ -127,16 +127,17 @@
     © 2026 CEMIA S.A.C. · RUC 20616076290 · <a href="privacidad.html" class="hover:text-white">Política de privacidad</a>
   </footer>
 
+  <script src="config.js"></script>
   <script>
     const hoy = new Date();
     document.getElementById('lrFecha').textContent = hoy.toLocaleDateString('es-PE', { day: '2-digit', month: 'long', year: 'numeric' });
     document.getElementById('lrForm').addEventListener('submit', (ev) => {
       ev.preventDefault();
       const f = ev.target, err = document.getElementById('lrError');
-      const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(f.correo.value.trim());
+      const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(f.elements.correo.value.trim());
       const req = ['nombre', 'numDoc', 'domicilio', 'telefono', 'descripcion', 'detalle', 'pedido'];
       const tipo = f.querySelector('input[name="tipo"]:checked');
-      if (req.some(n => !f[n].value.trim()) || !emailOk || !tipo || !f.consentimiento.checked) { err.classList.remove('hidden'); return; }
+      if (req.some(n => !f.elements[n].value.trim()) || !emailOk || !tipo || !f.elements.consentimiento.checked) { err.classList.remove('hidden'); return; }
       err.classList.add('hidden');
       const p = (n) => String(n).padStart(2, '0');
       const codigo = `CEMIA-${hoy.getFullYear()}${p(hoy.getMonth() + 1)}${p(hoy.getDate())}-${p(hoy.getHours())}${p(hoy.getMinutes())}${p(hoy.getSeconds())}`;
@@ -146,25 +147,35 @@
         `Proveedor: CEMIA S.A.C. - RUC 20616076290`,
         ``,
         `1. CONSUMIDOR`,
-        `Nombre: ${f.nombre.value.trim()}`,
-        `${f.tipoDoc.value}: ${f.numDoc.value.trim()}`,
-        `Domicilio: ${f.domicilio.value.trim()}`,
-        `Teléfono: ${f.telefono.value.trim()}`,
-        `Correo: ${f.correo.value.trim()}`,
-        f.apoderado.value.trim() ? `Apoderado: ${f.apoderado.value.trim()}` : '',
+        `Nombre: ${f.elements.nombre.value.trim()}`,
+        `${f.elements.tipoDoc.value}: ${f.elements.numDoc.value.trim()}`,
+        `Domicilio: ${f.elements.domicilio.value.trim()}`,
+        `Teléfono: ${f.elements.telefono.value.trim()}`,
+        `Correo: ${f.elements.correo.value.trim()}`,
+        f.elements.apoderado.value.trim() ? `Apoderado: ${f.elements.apoderado.value.trim()}` : '',
         ``,
         `2. BIEN CONTRATADO`,
-        `Tipo: ${f.bien.value}`,
-        `Monto: ${f.monto.value.trim() ? 'S/ ' + f.monto.value.trim() : 'No indicado'}`,
-        `Descripción: ${f.descripcion.value.trim()}`,
+        `Tipo: ${f.elements.bien.value}`,
+        `Monto: ${f.elements.monto.value.trim() ? 'S/ ' + f.elements.monto.value.trim() : 'No indicado'}`,
+        `Descripción: ${f.elements.descripcion.value.trim()}`,
         ``,
         `3. ${tipo.value.toUpperCase()}`,
-        `Detalle: ${f.detalle.value.trim()}`,
-        `Pedido: ${f.pedido.value.trim()}`
+        `Detalle: ${f.elements.detalle.value.trim()}`,
+        `Pedido: ${f.elements.pedido.value.trim()}`
       ].filter(l => l !== '').join('\n');
+      const endpoint = (window.CEMIA_CONFIG || {}).sheetsEndpoint;
+      if (endpoint) {
+        fetch(endpoint, { method: 'POST', mode: 'no-cors', body: new URLSearchParams({
+          tipo: 'reclamacion', codigo, clase: tipo.value, nombre: f.elements.nombre.value.trim(), tipoDoc: f.elements.tipoDoc.value,
+          numDoc: f.elements.numDoc.value.trim(), domicilio: f.elements.domicilio.value.trim(), telefono: f.elements.telefono.value.trim(),
+          correo: f.elements.correo.value.trim(), apoderado: f.elements.apoderado.value.trim(), bien: f.elements.bien.value, monto: f.elements.monto.value.trim(),
+          descripcion: f.elements.descripcion.value.trim(), detalle: f.elements.detalle.value.trim(), pedido: f.elements.pedido.value.trim(), resumen
+        }) }).catch(() => {});
+        document.getElementById('lrNota').textContent = 'Tu hoja quedó registrada y te enviamos una copia a tu correo. Puedes guardar también esta copia:';
+      }
       document.getElementById('lrCodigo').textContent = codigo;
       document.getElementById('lrResumen').textContent = resumen;
-      document.getElementById('lrMail').href = `mailto:cemia.peru@gmail.com?cc=${encodeURIComponent(f.correo.value.trim())}&subject=${encodeURIComponent('Libro de Reclamaciones ' + codigo)}&body=${encodeURIComponent(resumen)}`;
+      document.getElementById('lrMail').href = `mailto:cemia.peru@gmail.com?cc=${encodeURIComponent(f.elements.correo.value.trim())}&subject=${encodeURIComponent('Libro de Reclamaciones ' + codigo)}&body=${encodeURIComponent(resumen)}`;
       document.getElementById('lrWa').href = `https://wa.me/51902232412?text=${encodeURIComponent(resumen)}`;
       document.getElementById('lrCopy').onclick = async () => {
         try { await navigator.clipboard.writeText(resumen); document.getElementById('lrCopy').textContent = 'Copiada'; }
